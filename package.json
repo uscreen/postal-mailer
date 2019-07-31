@@ -33,6 +33,9 @@
   },
   "dependencies": {
     "@atech/postal": "^1.0.0",
-    "env-schema": "^1.0.0"
+    "env-schema": "^1.0.0",
+    "handlebars": "^4.1.2",
+    "html-to-text": "^5.1.1",
+    "mjml": "^4.4.1"
   }
 }

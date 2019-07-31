@@ -11,7 +11,19 @@
 
     <mj-section background-color="#FFFFFF">
       <mj-column width="100%">
-        <mj-text align="left" padding="50px 40px 0 40px" font-weight="300">{{{body}}}</mj-text>
+        <mj-text align="left" padding="50px 40px 0 40px" font-weight="300">
+          Greetings {{user.firstName}} {{user.lastName}},<br>
+          <br>
+          this is a simple example on how to setup a template and pass in some data.
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="#FFFFFF">
+      <mj-column width="100%">
+        <mj-text align="left" padding="50px 40px 0 40px" font-weight="300">
+          template will prefix all asset urls (ie. imgages) with "{{postalAssetsUrl}}"
+        </mj-text>
       </mj-column>
     </mj-section>
 
