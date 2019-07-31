@@ -30,5 +30,9 @@
     "lint-staged": "^9.2.1",
     "prettier": "^1.18.2",
     "yorkie": "^2.0.0"
+  },
+  "dependencies": {
+    "@atech/postal": "^1.0.0",
+    "env-schema": "^1.0.0"
   }
 }
