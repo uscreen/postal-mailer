@@ -1,0 +1,25 @@
+<mjml>
+  <mj-head>
+    <mj-title>Test Mail</mj-title>
+    <mj-attributes>
+      <mj-all font-family="BlinkMacSystemFont, -apple-system, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;"></mj-all>
+      <mj-text font-weight="300" font-size="16px" color="#000000" line-height="24px"></mj-text>
+    </mj-attributes>
+  </mj-head>
+
+  <mj-body background-color="#F2F2F2">
+
+    <mj-section background-color="#FFFFFF">
+      <mj-column width="100%">
+        <mj-text align="left" padding="50px 40px 0 40px" font-weight="300">{{{body}}}</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding="0px 0 20px 0">
+      <mj-column>
+        <mj-text align="center" color="#9B9B9B" font-size="11px">ACME Inc, Street. 1, 12345 City</mj-text>
+      </mj-column>
+    </mj-section>
+
+  </mj-body>
+</mjml>
