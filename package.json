@@ -5,6 +5,5 @@
   "main": "index.js",
   "repository": "git@gitlab.uscreen.net:uscreen/npm/postal-mailer.git",
   "author": "Marcus Spiegel <spiegel@uscreen.de>",
-  "license": "MIT",
-  "private": true
+  "license": "MIT"
 }
