@@ -9,20 +9,23 @@
 
   <mj-body background-color="#F2F2F2">
 
-    <mj-section background-color="#FFFFFF">
+    <mj-section background-color="#ff781e" padding="20px">
       <mj-column width="100%">
-        <mj-text align="left" padding="50px 40px 0 40px" font-weight="300">
-          Greetings {{user.firstName}} {{user.lastName}},<br>
-          <br>
-          this is a simple example on how to setup a template and pass in some data.
+        <mj-text align="center" font-size="24px" color="#ffffff" font-weight="600">
+          A very simple Test E-Mail
         </mj-text>
       </mj-column>
     </mj-section>
 
-    <mj-section background-color="#FFFFFF">
+    <mj-section background-color="#FFFFFF" padding="40px 20px">
       <mj-column width="100%">
-        <mj-text align="left" padding="50px 40px 0 40px" font-weight="300">
-          template will prefix all asset urls (ie. imgages) with "{{postalAssetsUrl}}"
+        <mj-text>
+          Greetings {{user.firstName}} {{user.lastName}},<br>
+          <br>
+          this is a simple example on how to setup a template and pass in some data.
+        </mj-text>
+        <mj-text>
+          template will prefix all asset urls (ie. imgages) with<br>"{{postalAssetsUrl}}"
         </mj-text>
       </mj-column>
     </mj-section>
