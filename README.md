@@ -94,23 +94,35 @@ which renders to something like this:
 
 All options can be managed via `.env` file and/or inline configuration as seen above. Overview of options:
 
-| option              | Description                                    | Default           | Example                             |
-|---------------------|------------------------------------------------|-------------------|-------------------------------------|
-| __useDotenv__       | whether to also read options from `.env` files | `false`           | `true`                              |
-| __postalServer__    | Postal Server Host                             |                   | postal.example.com                  |
-| __postalKey__       | API Key to use                                 |                   | ExAmPlE_key                         |
-| __postalSender__    | From Address in emails                         |                   | noreply@example.com                 |
-| __postalTemplates__ | path to directory containing email templates   | `<cwd>/templates` | ./templates/mails                   |
-| __postalAssetsUrl__ | url to prefix assets                           | `''`              | https://www.example.com/mail/assets |
+| option                  | Description                                                                                                 | Default           | Example                             |
+|-------------------------|-------------------------------------------------------------------------------------------------------------|-------------------|-------------------------------------|
+| __useDotenv__           | whether to also read options from `.env` files                                                              | `false`           | `true`                              |
+| __postalServer__        | Postal Server Host                                                                                          |                   | postal.example.com                  |
+| __postalKey__           | API Key to use                                                                                              |                   | ExAmPlE_key                         |
+| __postalSender__        | From Address in emails                                                                                      |                   | noreply@example.com                 |
+| __postalTemplates__     | path to directory containing email templates                                                                | `<cwd>/templates` | ./templates/mails                   |
+| __postalAssetsUrl__     | url to prefix assets                                                                                        | `''`              | https://www.example.com/mail/assets |
+| __postalDefaultLocale__ | when set, locales will default to 'en' and templates will default `./templates/en` instead of `./templates` | `''`              | 'en'                                |
 
 ## API
 
-#### mailer.sendMail__({ template, data, to, subject, locale = '' })
+#### mailer.sendMail({ template, data, to, subject, locale = '' })
 
-Render a `template` with `data` and send it `to` a recepient with a `subject`.
+Send a `template` rendered with `data` `to` a recepient with a `subject`.
+(In an optional language set by `locale`)
 
 ## Roadmap
 
-- add multilang support (stubbed)
 - add tests (shame)
-- add api/config docs
+
+## Changelog
+
+### 0.2.0
+
+- added (optional) multilanguage support for templates
+- added examples and docs
+
+### 0.1.0
+
+- rendering of templates (to html + text) & sending thru api works
+
