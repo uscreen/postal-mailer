@@ -26,7 +26,16 @@ const mailer = require('@uscreen.de/postal-mailer')({
 })
 ```
 
-more details see `./examples`
+more details see `./examples` - all options can be managed via `.env` file and/or inline configuration as seen above. Overview of options:
+
+| option              | Description                                    | Default           | Example                             |
+|---------------------|------------------------------------------------|-------------------|-------------------------------------|
+| __useDotenv__       | whether to also read options from `.env` files | `false`           | `true`                              |
+| __postalServer__    | Postal Server Host                             |                   | postal.example.com                  |
+| __postalKey__       | API Key to use                                 |                   | ExAmPlE_key                         |
+| __postalSender__    | From Address in emails                         |                   | noreply@example.com                 |
+| __postalTemplates__ | path to directory containing email templates   | `<cwd>/templates` | ./templates/mails                   |
+| __postalAssetsUrl__ | url to prefix assets                           | `''`              | https://www.example.com/mail/assets |
 
 ## Use
 
