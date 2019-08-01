@@ -14,7 +14,7 @@
 $ yarn add @uscreen.de/postal-mailer # or use npm -i
 ```
 
-## Configure 
+## Example 
 
 ```js
 const mailer = require('@uscreen.de/postal-mailer')({
@@ -24,27 +24,12 @@ const mailer = require('@uscreen.de/postal-mailer')({
   // override with inline options if needed
   postalSender: 'domains+noreply@postal-stage.uscreen.net'
 })
-```
 
-more details see `./examples` - all options can be managed via `.env` file and/or inline configuration as seen above. Overview of options:
-
-| option              | Description                                    | Default           | Example                             |
-|---------------------|------------------------------------------------|-------------------|-------------------------------------|
-| __useDotenv__       | whether to also read options from `.env` files | `false`           | `true`                              |
-| __postalServer__    | Postal Server Host                             |                   | postal.example.com                  |
-| __postalKey__       | API Key to use                                 |                   | ExAmPlE_key                         |
-| __postalSender__    | From Address in emails                         |                   | noreply@example.com                 |
-| __postalTemplates__ | path to directory containing email templates   | `<cwd>/templates` | ./templates/mails                   |
-| __postalAssetsUrl__ | url to prefix assets                           | `''`              | https://www.example.com/mail/assets |
-
-## Use
-
-```js
 const result = await mailer
   .sendMail({
     data,
     template: 'test',
-    to: 'recpt@example.com',
+    to: 'rcpt@example.com',
     subject: 'Example Test Mail'
   })
   .then(r => {
@@ -104,6 +89,25 @@ Please refer to https://mjml.io and https://handlebarsjs.com. Start with example
 which renders to something like this:
 
 ![](demomail.png)
+
+## Options
+
+All options can be managed via `.env` file and/or inline configuration as seen above. Overview of options:
+
+| option              | Description                                    | Default           | Example                             |
+|---------------------|------------------------------------------------|-------------------|-------------------------------------|
+| __useDotenv__       | whether to also read options from `.env` files | `false`           | `true`                              |
+| __postalServer__    | Postal Server Host                             |                   | postal.example.com                  |
+| __postalKey__       | API Key to use                                 |                   | ExAmPlE_key                         |
+| __postalSender__    | From Address in emails                         |                   | noreply@example.com                 |
+| __postalTemplates__ | path to directory containing email templates   | `<cwd>/templates` | ./templates/mails                   |
+| __postalAssetsUrl__ | url to prefix assets                           | `''`              | https://www.example.com/mail/assets |
+
+## API
+
+#### mailer.sendMail__({ template, data, to, subject, locale = '' })
+
+Render a `template` with `data` and send it `to` a recepient with a `subject`.
 
 ## Roadmap
 
