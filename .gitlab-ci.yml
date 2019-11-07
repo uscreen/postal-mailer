@@ -1,0 +1,16 @@
+image: node:10
+
+cache:
+  paths:
+    - node_modules/
+    - .yarn
+
+stages:
+  - audit
+
+audit:
+  stage: audit
+  script:
+    - yarn audit
+  #  - yarn install --pure-lockfile --cache-folder .yarn
+  
