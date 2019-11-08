@@ -7,10 +7,19 @@ cache:
 
 stages:
   - audit
+  - deploy
 
 audit:
   stage: audit
+  only:
+  - schedules
   script:
     - yarn audit
-  #  - yarn install --pure-lockfile --cache-folder .yarn
+  
+deploy:
+  stage: deploy
+  except:
+  - schedules
+  script:
+    - echo "deploy setup pending"
   
