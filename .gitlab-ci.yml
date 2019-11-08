@@ -6,15 +6,16 @@ cache:
     - .yarn
 
 stages:
-  - audit
+  - test
   - deploy
-
-audit:
-  stage: audit
-  only:
+  - audit
+  
+test:
+  stage: test
+  except:
   - schedules
   script:
-    - yarn audit
+    - echo "test setup pending"
   
 deploy:
   stage: deploy
@@ -22,4 +23,10 @@ deploy:
   - schedules
   script:
     - echo "deploy setup pending"
-  
+
+audit:
+  stage: audit
+  only:
+  - schedules
+  script:
+    - yarn audit
