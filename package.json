@@ -20,15 +20,15 @@
   },
   "devDependencies": {
     "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-config-standard": "^14.1.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
-    "lint-staged": "^10.0.7",
-    "prettier": "^1.18.2",
+    "lint-staged": "^10.0.9",
+    "prettier": "^2.0.2",
     "yorkie": "^2.0.0"
   },
   "dependencies": {
@@ -38,5 +38,8 @@
     "handlebars": "^4.7.3",
     "html-to-text": "^5.1.1",
     "mjml": "^4.4.1"
+  },
+  "resolutions": {
+    "minimist": "1.2.5"
   }
 }
