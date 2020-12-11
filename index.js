@@ -2,4 +2,4 @@
 
 const lib = require('./lib')
 
-module.exports = opts => lib({ opts })
+module.exports = (opts) => lib({ opts })

@@ -37,7 +37,7 @@ const send = async () => {
       subject: 'Example Test Mail'
       // locale: 'ru' // --> will use `./templates/en/test.mjml` as `ru` is not existing
     })
-    .catch(e => {
+    .catch((e) => {
       console.error('ERROR sending mail:', e)
     })
 
