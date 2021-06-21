@@ -1,6 +1,6 @@
 {
   "name": "@uscreen.de/postal-mailer",
-  "version": "0.4.2",
+  "version": "0.4.3-rc1",
   "description": "Mailer engine using mjml templates to send mail via postal api",
   "main": "index.js",
   "repository": "git@gitlab.uscreen.net:uscreen/npm/postal-mailer.git",
@@ -30,6 +30,6 @@
     "globby": "^11.0.4",
     "handlebars": "^4.7.7",
     "html-to-text": "^6.0.0",
-    "mjml": "^4.9.3"
+    "mjml": "^4.10.0"
   }
 }
