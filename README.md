@@ -114,6 +114,10 @@ Send a `template` rendered with `data` `to` a recepient with a `subject`.
 ## Roadmap
 
 - add tests (shame)
+- upgrades:
+    ◯ globby        latest  11.0.4  ❯  12.0.2  https://github.com/sindresorhus/globby#readme
+    ◯ html-to-text  latest  6.0.0   ❯  8.0.0   https://github.com/html-to-text/node-html-to-text
+- use esm (or shim with https://github.com/standard-things/esm)
 
 ## Changelog
 
