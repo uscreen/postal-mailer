@@ -1,12 +1,12 @@
 # postal-mailer
 
-> Mailer engine using mjml templates to send mail via postal api
+> Mailer engine using mjml templates to send mail via postal api or smtp
 
 ## Features
 
 * configure inline (json object) or by dotenv
 * uses handlebars + mjml for compilation and render
-* sends mails via postal api
+* sends mails via postal api or smtp
 
 ## Install
 
@@ -97,8 +97,11 @@ All options can be managed via `.env` file and/or inline configuration as seen a
 | option                  | Description                                                                                                 | Default           | Example                             |
 |-------------------------|-------------------------------------------------------------------------------------------------------------|-------------------|-------------------------------------|
 | __useDotenv__           | whether to also read options from `.env` files                                                              | `false`           | `true`                              |
+| __postalTransport__     | Send mail via Postal API or SMTP                                                                            | `postal`          | `smtp`                              |
 | __postalServer__        | Postal Server Host                                                                                          |                   | postal.example.com                  |
-| __postalKey__           | API Key to use                                                                                              |                   | ExAmPlE_key                         |
+| __postalPort__          | If sending via SMTP, the SMTP port                                                                          | 25                | 25                                  |
+| __postalUser__          | If sending via SMTP, the SMTP username                                                                      |                   | acme/my-api                         |
+| __postalKey__           | If sending via Postal API, the API Key to use. If sending via SMTP, the SMTP password                       |                   | ExAmPlE_key                         |
 | __postalSender__        | From Address in emails                                                                                      |                   | noreply@example.com                 |
 | __postalTemplates__     | path to directory containing email templates                                                                | `<cwd>/templates` | ./templates/mails                   |
 | __postalAssetsUrl__     | url to prefix assets                                                                                        | `''`              | https://www.example.com/mail/assets |
@@ -120,6 +123,11 @@ Send a `template` rendered with `data` `to` a recepient with a `subject`.
 - use esm (or shim with https://github.com/standard-things/esm)
 
 ## Changelog
+
+### 0.5.0
+
+- added support of attachments
+- added smtp transport
 
 ### 0.2.0
 
