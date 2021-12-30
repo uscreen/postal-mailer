@@ -3,7 +3,7 @@
 /**
  * configure
  */
-const mailer = require('../index')({
+const mailer = require('../../index')({
   // load config defaults from .env file
   useDotenv: true,
 
