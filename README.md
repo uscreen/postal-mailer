@@ -117,12 +117,17 @@ Send a `template` rendered with `data` `to` a recepient with a `subject`.
 ## Roadmap
 
 - add tests (shame)
+- use esm (or shim with https://github.com/standard-things/esm)
 - upgrades:
     ◯ globby        latest  11.0.4  ❯  12.0.2  https://github.com/sindresorhus/globby#readme
-    ◯ html-to-text  latest  6.0.0   ❯  8.0.0   https://github.com/html-to-text/node-html-to-text
-- use esm (or shim with https://github.com/standard-things/esm)
+- deplrecate postalAssetsUrl as this is implementation context
 
 ## Changelog
+
+### 0.6.0
+
+- added smtp example
+- fixed pending upgrades
 
 ### 0.5.0
 
