@@ -17,12 +17,12 @@
   },
   "dependencies": {
     "@atech/postal": "^1.0.0",
-    "env-schema": "^3.4.0",
+    "env-schema": "^3.5.1",
     "globby": "^11.0.4",
     "handlebars": "^4.7.7",
-    "html-to-text": "^6.0.0",
-    "mjml": "^4.10.4",
-    "nodemailer": "^6.7.0"
+    "html-to-text": "^8.1.0",
+    "mjml": "^4.11.0",
+    "nodemailer": "^6.7.2"
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix"
