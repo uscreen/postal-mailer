@@ -7,22 +7,13 @@
   "author": "Marcus Spiegel <spiegel@uscreen.de>",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint '**/*.js' --fix"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js}": [
-      "eslint --fix",
-      "git add"
-    ]
+    "lint": "eslint --fix",
+    "prepare": "husky install"
   },
   "devDependencies": {
-    "@uscreen.de/eslint-config-prettystandard-node": "^0.1.4",
-    "lint-staged": "^11.2.3",
-    "prettier": "^2.4.1",
-    "yorkie": "^2.0.0"
+    "@uscreen.de/eslint-config-prettystandard-node": "^0.2.0",
+    "husky": ">=6",
+    "lint-staged": ">=10"
   },
   "dependencies": {
     "@atech/postal": "^1.0.0",
@@ -32,5 +23,8 @@
     "html-to-text": "^6.0.0",
     "mjml": "^4.10.4",
     "nodemailer": "^6.7.0"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
   }
 }
