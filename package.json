@@ -17,6 +17,7 @@
     "@uscreen.de/eslint-config-prettystandard-node": "^0.2.1",
     "husky": ">=6",
     "lint-staged": ">=12.3.2",
+    "nodemailer-mock": "^1.5.11",
     "tap": "^15.1.6"
   },
   "dependencies": {
