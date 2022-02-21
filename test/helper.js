@@ -4,12 +4,13 @@ const path = require('path')
 
 const nodemailer = require('nodemailer')
 const nodemailerMock = require('nodemailer-mock')
-
 class postalClientMock {
   constructor(config, key) {
     console.log('in constructor')
   }
 }
+
+const postal = require('../lib/postal')
 
 class postalSendMessageMock {
   constructor(config, key) {
@@ -32,31 +33,35 @@ class postalSendMessageMock {
 
 const postalDefaults = () => ({
   postalTemplates: path.join(process.cwd(), 'test/templates'),
-  postalServer: '127.0.0.1',
+  postalServer: 'postal.uscreen.me',
   postalPort: 2525,
   postalUser: 'someUser',
   postalKey: 'someKey',
   postalSender: 'mail@domain.com',
-  postalTransport: 'smtp'
+  postalTransport: 'smtp',
+  postalDefaultLocale: ''
 })
 
 const build = async (t, options = {}) => {
-  const mockedNodemailer = nodemailerMock.getMockFor(nodemailer)
-  const smtpMock = t.mock('../index', {
-    nodemailer: mockedNodemailer,
-    '@atech/postal': {
-      Client: postalClientMock,
-      SendMessage: postalSendMessageMock
-    }
-  })
-
   const postalOptions = { ...postalDefaults(), ...options }
 
-  const smtpMocked = smtpMock(postalOptions)
+  if (options.postalTransport === 'smtp') {
+    const mockedNodemailer = nodemailerMock.getMockFor(nodemailer)
+    const smtpMock = t.mock('../index', {
+      nodemailer: mockedNodemailer,
+      '@atech/postal': {
+        Client: postalClientMock,
+        SendMessage: postalSendMessageMock
+      }
+    })
 
-  const app = { smtpMocked, mockedNodemailer }
+    const smtpMocked = smtpMock(postalOptions)
 
-  return app
+    return { smtpMocked, mockedNodemailer }
+  }
+
+  const { client, sendMail } = postal(postalOptions)
+  return { postalOptions, client, sendMail }
 }
 
 module.exports = {
