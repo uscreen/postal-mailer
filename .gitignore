@@ -3,3 +3,5 @@
 /.vscode
 .env
 /.eslintcache
+/.dccache
+/.nyc_output
