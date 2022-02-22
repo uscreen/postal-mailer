@@ -2,7 +2,7 @@
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-text>ENG: {{foo}}</mj-text>
+        <mj-text>EN: {{foo}}</mj-text>
       </mj-column>
     </mj-section>
   </mj-body>

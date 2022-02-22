@@ -2,7 +2,7 @@
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-text>TEMPLATE: {{foo}}</mj-text>
+        <mj-text>DE: {{foo}}</mj-text>
       </mj-column>
     </mj-section>
   </mj-body>
