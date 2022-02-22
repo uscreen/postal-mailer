@@ -14,11 +14,8 @@ const postal = require('../lib/postal')
 
 class postalSendMessageMock {
   constructor(config, key) {
-    console.log('postalSendMessageMock', config, key)
     return {
-      from: (from) => {
-        console.log('from', from)
-      },
+      from: () => {},
       to: () => {},
       subject: () => {},
       htmlBody: () => {},
