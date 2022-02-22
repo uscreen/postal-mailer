@@ -39,7 +39,7 @@ const postalDefaults = () => ({
   postalKey: 'someKey',
   postalSender: 'mail@domain.com',
   postalTransport: 'smtp',
-  postalDefaultLocale: ''
+  postalDefaultLocale: 'en'
 })
 
 const build = async (t, options = {}) => {
