@@ -5,24 +5,24 @@ cache:
     - node_modules/
     - .yarn
 
+variables:
+  postalServer: 'mailhog-mailhog'
+
 stages:
   - test
   - deploy
   - audit
-  
+
 test:
   stage: test
+  services:
+    - mailhog/mailhog:latest
   except:
   - schedules
   script:
-    - echo "test setup pending"
-  
-deploy:
-  stage: deploy
-  except:
-  - schedules
-  script:
-    - echo "deploy setup pending"
+  - yarn install --pure-lockfile --cache-folder .yarn
+  - yarn test:ci
+  coverage: '/^Statements\s*:\s*([^%]+)/'
 
 audit:
   stage: audit
