@@ -1,6 +1,5 @@
 const tap = require('tap')
 const nock = require('nock')
-// const { unflatten } = require('flat')
 const { build } = require('./helper')
 
 const interceptor = require('./interceptor')
