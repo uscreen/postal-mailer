@@ -116,7 +116,6 @@ Send a `template` rendered with `data` `to` a recepient with a `subject`.
 
 ## Roadmap
 
-- add tests (shame)
 - use esm (or shim with https://github.com/standard-things/esm)
 - upgrades:
     ◯ globby        latest  11.0.4  ❯  12.0.2  https://github.com/sindresorhus/globby#readme
