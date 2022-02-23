@@ -19,6 +19,7 @@
     "flat": "^5.0.2",
     "husky": ">=6",
     "lint-staged": ">=12.3.2",
+    "mailhog": "^4.16.0",
     "nock": "^13.2.4",
     "nodemailer-mock": "^1.5.11",
     "tap": "^15.1.6"
@@ -34,5 +35,14 @@
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix"
-  }
+  },
+  "services": [
+    {
+      "image": "mailhog/mailhog:latest",
+      "ports": [
+        "1025:1025",
+        "8025:8025"
+      ]
+    }
+  ]
 }
