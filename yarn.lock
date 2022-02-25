@@ -420,15 +420,15 @@
   resolved "https://registry.yarnpkg.com/@types/yoga-layout/-/yoga-layout-1.9.2.tgz#efaf9e991a7390dc081a0b679185979a83a9639a"
   integrity sha512-S9q47ByT2pPvD65IvrWp7qppVMpk9WGMbVq9wbWZOHg6tnXSD4vyhao6nOSBwwfDdV2p3Kx9evA9vI+XWTfDvw==
 
-"@uscreen.de/dev-service@^0.11.7":
-  version "0.11.7"
-  resolved "https://registry.yarnpkg.com/@uscreen.de/dev-service/-/dev-service-0.11.7.tgz#469cf8e8a854c9d240652ad74a766dc19d4bc9aa"
-  integrity sha512-3II7ojAIl/KRjJu6Cd+PQYc4e/B8u8nWZPWaY5qnYrlrcHXlFSorNbDrxDtFVKw+KM+itaP9gOSsOPsN4KEiew==
+"@uscreen.de/dev-service@^0.11.8":
+  version "0.11.8"
+  resolved "https://registry.yarnpkg.com/@uscreen.de/dev-service/-/dev-service-0.11.8.tgz#162728b0d0c440788481ff2f6be63f7b92b7a194"
+  integrity sha512-b/q2qfKfzftc/3NqJmObhFBo3X3hfKsFBcsc77W8jtmg4zPgBTBKPuidGx2AobNkyspB5ihJdTGTJotKwdh1ug==
   dependencies:
     c8 "^7.11.0"
     commander "^9.0.0"
-    fs-extra "^10.0.0"
-    nanoid "^3.1.31"
+    fs-extra "^10.0.1"
+    nanoid "^3.3.1"
     parse-json "^6.0.2"
     read-pkg "^7.1.0"
     yaml "^1.10.2"
@@ -1751,7 +1751,7 @@ fs-exists-cached@^1.0.0:
   resolved "https://registry.yarnpkg.com/fs-exists-cached/-/fs-exists-cached-1.0.0.tgz#cf25554ca050dc49ae6656b41de42258989dcbce"
   integrity sha1-zyVVTKBQ3EmuZla0HeQiWJidy84=
 
-fs-extra@^10.0.0:
+fs-extra@^10.0.1:
   version "10.0.1"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-10.0.1.tgz#27de43b4320e833f6867cc044bfce29fdf0ef3b8"
   integrity sha512-NbdoVMZso2Lsrn/QwLXOy6rm0ufY2zEOKCDzJR/0kBsb0E6qed0P3iYK+Ath3BfvXEeu4JhEtXLgILx5psUfag==
@@ -3108,7 +3108,7 @@ ms@^2.1.1, ms@^2.1.2:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
-nanoid@^3.1.31:
+nanoid@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.1.tgz#6347a18cac88af88f58af0b3594b723d5e99bb35"
   integrity sha512-n6Vs/3KGyxPQd6uO0eH4Bv0ojGSUvuLlIHtC3Y0kEO23YRge8H9x1GCzLn28YX0H66pMkxuaeESFq4tKISKwdw==
