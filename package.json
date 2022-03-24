@@ -18,7 +18,7 @@
     "@uscreen.de/eslint-config-prettystandard-node": "^0.2.2",
     "deep-equal": "^2.0.5",
     "husky": ">=6",
-    "lint-staged": ">=12.3.5",
+    "lint-staged": ">=12.3.7",
     "mailhog": "^4.16.0",
     "nock": "^13.2.4",
     "tap": "^16.0.0"
