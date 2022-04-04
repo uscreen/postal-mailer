@@ -1,6 +1,6 @@
 {
   "name": "@uscreen.de/postal-mailer",
-  "version": "0.6.5",
+  "version": "0.6.6",
   "description": "Mailer engine using mjml templates to send mail via postal api or smtp",
   "main": "index.js",
   "repository": "git@gitlab.uscreen.net:uscreen/npm/postal-mailer.git",
@@ -14,14 +14,14 @@
     "test:ci": "tap --coverage-report=text-summary test/**/*.test.js"
   },
   "devDependencies": {
-    "@uscreen.de/dev-service": "^0.11.8",
+    "@uscreen.de/dev-service": "^0.11.9",
     "@uscreen.de/eslint-config-prettystandard-node": "^0.2.2",
     "deep-equal": "^2.0.5",
     "husky": ">=6",
     "lint-staged": ">=12.3.7",
     "mailhog": "^4.16.0",
     "nock": "^13.2.4",
-    "tap": "^16.0.0"
+    "tap": "^16.0.1"
   },
   "dependencies": {
     "@atech/postal": "^1.0.0",
