@@ -14,23 +14,23 @@
     "test:ci": "tap --coverage-report=text-summary test/**/*.test.js"
   },
   "devDependencies": {
-    "@uscreen.de/dev-service": "^0.11.9",
+    "@uscreen.de/dev-service": "^0.11.13",
     "@uscreen.de/eslint-config-prettystandard-node": "^0.2.2",
     "deep-equal": "^2.0.5",
-    "husky": ">=6",
-    "lint-staged": ">=12.3.7",
+    "husky": ">=8.0.1",
+    "lint-staged": ">=13.0.1",
     "mailhog": "^4.16.0",
-    "nock": "^13.2.4",
-    "tap": "^16.0.1"
+    "nock": "^13.2.6",
+    "tap": "^16.2.0"
   },
   "dependencies": {
     "@atech/postal": "^1.0.0",
-    "env-schema": "^3.5.2",
-    "globby": "^11.0.4",
+    "env-schema": "^5.0.0",
+    "globby": "^11.1.0",
     "handlebars": "^4.7.7",
-    "html-to-text": "^8.1.0",
+    "html-to-text": "^8.2.0",
     "mjml": "^4.12.0",
-    "nodemailer": "^6.7.2"
+    "nodemailer": "^6.7.5"
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix"
