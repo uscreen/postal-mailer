@@ -14,14 +14,14 @@
     "test:ci": "tap --coverage-report=text-summary test/**/*.test.js"
   },
   "devDependencies": {
-    "@uscreen.de/dev-service": "^0.11.13",
-    "@uscreen.de/eslint-config-prettystandard-node": "^0.2.2",
+    "@uscreen.de/dev-service": "^0.11.14",
+    "@uscreen.de/eslint-config-prettystandard-node": "^0.2.4",
     "deep-equal": "^2.0.5",
     "husky": ">=8.0.1",
-    "lint-staged": ">=13.0.1",
+    "lint-staged": ">=13.0.2",
     "mailhog": "^4.16.0",
-    "nock": "^13.2.6",
-    "tap": "^16.2.0"
+    "nock": "^13.2.7",
+    "tap": "^16.3.0"
   },
   "dependencies": {
     "@atech/postal": "^1.0.0",
