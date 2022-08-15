@@ -14,8 +14,8 @@
     "test:ci": "tap --coverage-report=text-summary test/**/*.test.js"
   },
   "devDependencies": {
-    "@uscreen.de/dev-service": "^0.11.18",
-    "@uscreen.de/eslint-config-prettystandard-node": "^0.2.7",
+    "@uscreen.de/dev-service": "^0.11.19",
+    "@uscreen.de/eslint-config-prettystandard-node": "^0.2.8",
     "deep-equal": "^2.0.5",
     "husky": ">=8.0.1",
     "lint-staged": ">=13.0.3",
@@ -30,7 +30,7 @@
     "handlebars": "^4.7.7",
     "html-to-text": "^8.2.1",
     "mjml": "^4.13.0",
-    "nodemailer": "^6.7.7"
+    "nodemailer": "^6.7.8"
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix"
