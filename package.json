@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@uscreen.de/dev-service": "^0.11.19",
-    "@uscreen.de/eslint-config-prettystandard-node": "^0.2.8",
+    "@uscreen.de/eslint-config-prettystandard-node": "^0.2.10",
     "deep-equal": "^2.0.5",
     "husky": ">=8.0.1",
     "lint-staged": ">=13.0.3",
