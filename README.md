@@ -1,5 +1,10 @@
 # postal-mailer
 
+[![Test CI](https://github.com/uscreen/postal-mailer/actions/workflows/main.yml/badge.svg)](https://github.com/uscreen/postal-mailer/actions/workflows/node.js.yml)
+[![Test Coverage](https://coveralls.io/repos/github/uscreen/postal-mailer/badge.svg?branch=master)](https://coveralls.io/github/uscreen/postal-mailer?branch=master)
+[![Known Vulnerabilities](https://snyk.io/test/github/uscreen/postal-mailer/badge.svg?targetFile=package.json)](https://snyk.io/test/github/uscreen/postal-mailer?targetFile=package.json)
+[![NPM Version](https://badge.fury.io/js/@uscreen.de%2Fpostal-mailer.svg)](https://badge.fury.io/js/@uscreen.de%2Fpostal-mailer)
+
 > Mailer engine using mjml templates to send mail via postal api or smtp
 
 ## Features

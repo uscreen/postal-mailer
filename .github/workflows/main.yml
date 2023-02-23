@@ -39,6 +39,11 @@ jobs:
       - name: Stop Mailhog
         run: docker stop mailhog
 
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
   automerge:
     if: >
         github.event_name == 'pull_request' &&
