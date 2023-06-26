@@ -454,12 +454,12 @@
   integrity sha512-S9q47ByT2pPvD65IvrWp7qppVMpk9WGMbVq9wbWZOHg6tnXSD4vyhao6nOSBwwfDdV2p3Kx9evA9vI+XWTfDvw==
 
 "@uscreen.de/dev-service@^0.12.3":
-  version "0.12.8"
-  resolved "https://registry.yarnpkg.com/@uscreen.de/dev-service/-/dev-service-0.12.8.tgz#41dedeba45af1c2963c0b6309fdc574c9344ab7b"
-  integrity sha512-VkpoFMQV7hvTvo20Ksl4JUNoXUjSvNMtqnOzBx1EETqA59K3ydHmzcxOsLUYZYLGnvvd09pTa3PFdgutBNSeBA==
+  version "0.12.9"
+  resolved "https://registry.yarnpkg.com/@uscreen.de/dev-service/-/dev-service-0.12.9.tgz#444633ec8ba3c4a3447b82d67591d81bdd4e22e4"
+  integrity sha512-xJ0mjTjjv8kyNLa8FBa+Xb0bpzHJziifNGt9MP8R15e0sjBliQuTLu+5zDIPSFOU6fmVu5oIbn7pT3sX8UR64g==
   dependencies:
-    c8 "^7.12.0"
-    commander "^10.0.0"
+    c8 "^8.0.0"
+    commander "^11.0.0"
     fs-extra "^11.1.0"
     nanoid "^4.0.0"
     parse-json "^7.0.0"
@@ -735,10 +735,10 @@ builtins@^5.0.1:
   dependencies:
     semver "^7.0.0"
 
-c8@^7.12.0:
-  version "7.13.0"
-  resolved "https://registry.yarnpkg.com/c8/-/c8-7.13.0.tgz#a2a70a851278709df5a9247d62d7f3d4bcb5f2e4"
-  integrity sha512-/NL4hQTv1gBL6J6ei80zu3IiTrmePDKXKXOTLpHvcIWZTVYQlDhVWjjWvkhICylE8EwwnMVzDZugCvdx0/DIIA==
+c8@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/c8/-/c8-8.0.0.tgz#99c7408fbbafaa5630ddc80881adbfe461fc6c8f"
+  integrity sha512-XHA5vSfCLglAc0Xt8eLBZMv19lgiBSjnb1FLAQgnwkuhJYEonpilhEB4Ea3jPAbm0FhD6VVJrc0z73jPe7JyGQ==
   dependencies:
     "@bcoe/v8-coverage" "^0.2.3"
     "@istanbuljs/schema" "^0.1.3"
@@ -994,6 +994,11 @@ commander@^10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-10.0.0.tgz#71797971162cd3cf65f0b9d24eb28f8d303acdf1"
   integrity sha512-zS5PnTI22FIRM6ylNW8G4Ap0IEOyk62fhLSD0+uHRT9McRCLGpkVNvao4bjimpK/GShynyQkFFxHhwMcETmduA==
+
+commander@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-11.0.0.tgz#43e19c25dbedc8256203538e8d7e9346877a6f67"
+  integrity sha512-9HMlXtt/BNoYr8ooyjjNRdIilOTkVJXB+GhxMTtOKwk0R4j4lS4NpjuqmRxroBfnfTSHQIHQB7wryHhXarNjmQ==
 
 commander@^2.19.0:
   version "2.20.3"
