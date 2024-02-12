@@ -30,7 +30,7 @@
   "dependencies": {
     "@atech/postal": "^1.0.0",
     "env-schema": "^5.0.0",
-    "globby": "^11.1.0",
+    "globby": "^14.0.1",
     "handlebars": "^4.7.7",
     "html-to-text": "^9.0.4",
     "mjml": "^4.13.0",
