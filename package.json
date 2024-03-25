@@ -25,7 +25,7 @@
     "lint-staged": ">=13.1.2",
     "mailhog": "^4.16.0",
     "nock": "^13.3.0",
-    "tap": "^16.3.4"
+    "tap": "^18.7.1"
   },
   "dependencies": {
     "@atech/postal": "^1.0.0",
