@@ -99,6 +99,28 @@ tap.test('layout system', async (t) => {
     t.notMatch(html, /Footer/, 'should not have footer from layout')
   })
 
+  t.test('should support relative layout paths', async (t) => {
+    // Create template with relative layout path
+    const relativeLayoutPath = path.join(testDir, 'de', 'test-relative-layout.mjml')
+    fs.writeFileSync(relativeLayoutPath, `<!-- @meta
+layout: ./layouts/base.mjml
+title: "Relative Path Test"
+headerText: "Relative Header"
+-->
+<mj-section>
+  <mj-column>
+    <mj-text>Content with relative layout</mj-text>
+  </mj-column>
+</mj-section>`)
+
+    const html = app.compileHtmlBody('test-relative-layout', {}, 'de')
+
+    // Check that layout was applied
+    t.match(html, /Relative Path Test/, 'should have title from layout')
+    t.match(html, /Relative Header/, 'should have header from variable')
+    t.match(html, /Content with relative layout/, 'should have content')
+  })
+
   t.test('should handle missing layout gracefully', async (t) => {
     // Create template with non-existent layout
     const badLayoutPath = path.join(testDir, 'de', 'test-bad-layout.mjml')
@@ -156,6 +178,28 @@ title: "No Footer"
     t.match(html, /Content/, 'should have content')
     // Check for footer text that's not part of the title
     t.notMatch(html, />Footer</, 'should not have footer text when hideFooter is true')
+  })
+
+  t.test('should handle single-quoted values in front matter', async (t) => {
+    // Create template with single-quoted values
+    const singleQuotePath = path.join(testDir, 'de', 'test-single-quotes.mjml')
+    fs.writeFileSync(singleQuotePath, `<!-- @meta
+layout: base.mjml
+title: 'Single Quoted Title'
+headerText: 'Header with Single Quotes'
+-->
+<mj-section>
+  <mj-column>
+    <mj-text>Content with single quotes</mj-text>
+  </mj-column>
+</mj-section>`)
+
+    const html = app.compileHtmlBody('test-single-quotes', {}, 'de')
+
+    // Check that single-quoted values work
+    t.match(html, /Single Quoted Title/, 'should parse single-quoted title')
+    t.match(html, /Header with Single Quotes/, 'should parse single-quoted header')
+    t.match(html, /Content with single quotes/, 'should have content')
   })
 
   t.test('should handle malformed front matter gracefully', async (t) => {
