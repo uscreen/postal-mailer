@@ -13,7 +13,7 @@
   "scripts": {
     "lint": "eslint --fix",
     "prepare": "husky install",
-    "test": "tap test/**/*.test.js",
+    "test:disabled": "tap test/**/*.test.js",
     "test:cov": "tap --coverage-report=html test/**/*.test.js",
     "test:ci": "tap --coverage-report=lcovonly test/**/*.test.js"
   },
