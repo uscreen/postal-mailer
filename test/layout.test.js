@@ -157,4 +157,25 @@ title: "No Footer"
     // Check for footer text that's not part of the title
     t.notMatch(html, />Footer</, 'should not have footer text when hideFooter is true')
   })
+
+  t.test('should handle malformed front matter gracefully', async (t) => {
+    // Create template with malformed front matter
+    const malformedPath = path.join(testDir, 'de', 'test-malformed.mjml')
+    fs.writeFileSync(malformedPath, `<!-- @meta
+layout: base.mjml
+title: "Test"
+invalid line without quotes
+another: invalid: line
+-->
+<mj-section>
+  <mj-column>
+    <mj-text>Content with malformed meta</mj-text>
+  </mj-column>
+</mj-section>`)
+
+    const html = app.compileHtmlBody('test-malformed', {}, 'de')
+    
+    // Should still compile successfully, ignoring invalid lines
+    t.match(html, /Content with malformed meta/, 'should compile despite malformed front matter')
+  })
 })
