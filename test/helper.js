@@ -1,6 +1,7 @@
 'use strict'
 
-const path = require('path')
+const path = require('node:path')
+const process = require('node:process')
 
 const app = require('../index')
 
@@ -18,8 +19,8 @@ const postalDefaults = () => ({
 const build = async (t, options = {}) => {
   const postalOptions = { ...postalDefaults(), ...options }
 
-  const { client, sendMail } = app(postalOptions)
-  return { postalOptions, client, sendMail }
+  const { client, sendMail, compileHtmlBody, compilePlainBody } = app(postalOptions)
+  return { postalOptions, client, sendMail, compileHtmlBody, compilePlainBody }
 }
 
 module.exports = {

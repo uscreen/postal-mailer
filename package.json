@@ -2,20 +2,30 @@
   "name": "@uscreen.de/postal-mailer",
   "version": "0.6.16",
   "description": "Mailer engine using mjml templates to send mail via postal api or smtp",
-  "main": "index.js",
+  "author": "Marcus Spiegel <spiegel@uscreen.de>",
+  "license": "MIT",
   "homepage": "https://github.com/uscreen/postal-mailer",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/uscreen/postal-mailer.git"
   },
-  "author": "Marcus Spiegel <spiegel@uscreen.de>",
-  "license": "MIT",
+  "main": "index.js",
   "scripts": {
     "lint": "eslint --fix",
     "prepare": "husky install",
     "test": "tap test/**/*.test.js",
     "test:cov": "tap --coverage-report=html test/**/*.test.js",
     "test:ci": "tap --coverage-report=lcovonly test/**/*.test.js"
+  },
+  "dependencies": {
+    "@atech/postal": "^1.0.0",
+    "env-schema": "^6.0.0",
+    "globby": "^11.1.0",
+    "gray-matter": "^4.0.3",
+    "handlebars": "^4.7.7",
+    "html-to-text": "^9.0.4",
+    "mjml": "^4.13.0",
+    "nodemailer": "^7.0.2"
   },
   "devDependencies": {
     "@uscreen.de/dev-service": "^0.12.3",
@@ -26,15 +36,6 @@
     "mailhog": "^4.16.0",
     "nock": "^14.0.0",
     "tap": "^16.3.4"
-  },
-  "dependencies": {
-    "@atech/postal": "^1.0.0",
-    "env-schema": "^6.0.0",
-    "globby": "^11.1.0",
-    "handlebars": "^4.7.7",
-    "html-to-text": "^9.0.4",
-    "mjml": "^4.13.0",
-    "nodemailer": "^7.0.2"
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix"

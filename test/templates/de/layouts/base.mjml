@@ -1,0 +1,19 @@
+<mjml>
+  <mj-head>
+    <mj-title>{{title}}</mj-title>
+    <mj-preview>{{preview}}</mj-preview>
+  </mj-head>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-text>Layout Header</mj-text>
+      </mj-column>
+    </mj-section>
+    {{{content}}}
+    <mj-section>
+      <mj-column>
+        <mj-text>Layout Footer</mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

@@ -1,0 +1,13 @@
+<!-- @meta
+layout: base.mjml
+title: "Test with Layout"
+preview: "Testing layout system"
+-->
+
+<!-- @content -->
+<mj-section>
+  <mj-column>
+    <mj-text>Test content with {{data}}</mj-text>
+  </mj-column>
+</mj-section>
+<!-- @endcontent -->

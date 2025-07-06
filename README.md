@@ -12,6 +12,7 @@
 * configure inline (json object) or by dotenv
 * uses handlebars + mjml for compilation and render
 * sends mails via postal api or smtp
+* supports layout inheritance to reduce template duplication
 
 ## Install
 
@@ -95,6 +96,91 @@ which renders to something like this:
 
 ![](demomail.png)
 
+### Layout System
+
+To reduce repetition in your email templates, you can use the layout inheritance system. This allows you to define a base layout with common elements (header, footer, styles) and only write the unique content for each email.
+
+#### Creating a Layout
+
+Create a layout file in a `layouts` subdirectory within your template locale folder:
+
+```html
+<!-- templates/en/layouts/base.mjml -->
+<mjml>
+  <mj-head>
+    <mj-title>{{title}}</mj-title>
+    <mj-preview>{{preview}}</mj-preview>
+    <mj-attributes>
+      <mj-all font-family="Arial, sans-serif" />
+    </mj-attributes>
+    <mj-style>
+      /* Common styles */
+      {{#if customStyles}}{{{customStyles}}}{{/if}}
+    </mj-style>
+  </mj-head>
+  <mj-body>
+    <!-- Common header -->
+    <mj-section>
+      <mj-column>
+        <mj-text>{{companyName}}</mj-text>
+      </mj-column>
+    </mj-section>
+    
+    <!-- Main content -->
+    {{{content}}}
+    
+    <!-- Common footer -->
+    {{#unless hideFooter}}
+    <mj-section>
+      <mj-column>
+        <mj-text>© 2024 {{companyName}}</mj-text>
+      </mj-column>
+    </mj-section>
+    {{/unless}}
+  </mj-body>
+</mjml>
+```
+
+#### Using a Layout
+
+To use a layout in your template, add a front matter section at the top:
+
+```html
+<!-- templates/en/welcome.mjml -->
+<!-- @meta
+layout: base.mjml
+title: "Welcome to Our Service"
+preview: "Get started with your new account"
+-->
+
+<!-- @styles -->
+.highlight { color: #ff6600; }
+<!-- @endstyles -->
+
+<!-- @content -->
+<mj-section>
+  <mj-column>
+    <mj-text>
+      Welcome {{user.firstName}}!
+    </mj-text>
+    <mj-text css-class="highlight">
+      Your account is ready to use.
+    </mj-text>
+  </mj-column>
+</mj-section>
+<!-- @endcontent -->
+```
+
+#### Layout Directives
+
+- `@meta` - Front matter section containing layout and variables
+  - `layout:` - Specifies which layout file to use (relative to the layouts directory)
+  - Other key-value pairs become variables passed to the layout
+- `@styles` / `@endstyles` - Adds custom CSS styles to the layout
+- `@content` / `@endcontent` - Wraps the main content of your email
+
+All template data passed to `sendMail()` is also available in the layout.
+
 ## Options
 
 All options can be managed via `.env` file and/or inline configuration as seen above. Overview of options:
@@ -127,6 +213,13 @@ Send a `template` rendered with `data` `to` a recepient with a `subject`.
 - deplrecate postalAssetsUrl as this is implementation context
 
 ## Changelog
+
+### 0.7.0
+
+- added layout inheritance system for templates
+- templates can now extend from base layouts to reduce duplication
+- added support for layout variables and custom styles
+- uses gray-matter for safe and reliable front matter parsing
 
 ### 0.6.0
 

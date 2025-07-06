@@ -1,6 +1,6 @@
-const tap = require('tap')
-
 const mailhog = require('mailhog')
+
+const tap = require('tap')
 
 const { build } = require('./helper')
 
@@ -52,7 +52,8 @@ tap.test('sendmail: smtp', async (t) => {
         'should have html body and templating enabled'
       )
       t.ok(sentMail.text === 'DE: bar', 'should have plain text')
-    } catch (error) {
+    }
+    catch (error) {
       console.log('error', error)
     }
     t.end()
@@ -80,7 +81,8 @@ tap.test('sendmail: smtp', async (t) => {
         'should send from mail@domain.com'
       )
       t.equal(message.cc, 'cc@domain.com', 'should send CC to cc@domain.com')
-    } catch (error) {
+    }
+    catch (error) {
       console.log('error', error)
     }
   })
@@ -104,7 +106,8 @@ tap.test('sendmail: smtp', async (t) => {
       payload.bcc.forEach((addr) => {
         t.ok(message.Raw.To.includes(addr), `should send BCC to ${addr}`)
       })
-    } catch (error) {
+    }
+    catch (error) {
       console.log('error', error)
     }
   })
@@ -125,7 +128,8 @@ tap.test('sendmail: smtp', async (t) => {
         'test@somewhere.com',
         'should send from test@somewhere.com'
       )
-    } catch (error) {
+    }
+    catch (error) {
       console.log('error', error)
     }
     t.end()
@@ -144,7 +148,8 @@ tap.test('sendmail: smtp', async (t) => {
 
       const message = messages.items[0]
       t.ok(message.text === 'EN: bar', 'should return English text')
-    } catch (error) {
+    }
+    catch (error) {
       console.log('error', error)
     }
     t.end()
@@ -163,11 +168,11 @@ tap.test('sendmail: smtp', async (t) => {
       t.equal(messages.total, 1, 'should have 1 mail sent')
       const message = messages.items[0]
       t.ok(
-        message.Content.Body.indexOf('Content-Type: image/jpg; name=test.jpg') >
-          -1,
+        message.Content.Body.includes('Content-Type: image/jpg; name=test.jpg'),
         'should have attachment included'
       )
-    } catch (error) {
+    }
+    catch (error) {
       console.log('error', error)
     }
     t.end()
@@ -180,7 +185,8 @@ tap.test('sendmail: smtp', async (t) => {
       delete payload[prop]
       try {
         await app.sendMail(payload)
-      } catch (error) {
+      }
+      catch (error) {
         t.ok(
           error && error.code === 'ERR_ASSERTION' && error.operator === '==',
           `should fail on missing property ${prop}`
@@ -197,7 +203,8 @@ tap.test('sendmail: smtp', async (t) => {
     ]
     try {
       await app.sendMail(payload)
-    } catch (error) {
+    }
+    catch (error) {
       t.ok(
         error && error.code === 'ERR_ASSERTION' && error.operator === '==',
         `should fail on invalid attachment data`
@@ -213,7 +220,8 @@ tap.test('sendmail: smtp', async (t) => {
     ]
     try {
       await app.sendMail(payload)
-    } catch (error) {
+    }
+    catch (error) {
       t.ok(
         error && error.code === 'ERR_ASSERTION' && error.operator === '==',
         `should fail on invalid attachment data`
