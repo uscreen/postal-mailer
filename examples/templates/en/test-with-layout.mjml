@@ -2,7 +2,6 @@
 layout: base.mjml
 title: "Test Mail"
 preview: "A simple test email"
-headerTitle: "Test Email"
 footerText: "ACME Inc, Street. 1, 12345 City"
 -->
 
