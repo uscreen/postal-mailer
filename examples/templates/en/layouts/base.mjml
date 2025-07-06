@@ -21,15 +21,6 @@
     </mj-style>
   </mj-head>
   <mj-body background-color="#f5f5f5">
-    <!-- Header -->
-    <mj-section padding="20px 0">
-      <mj-column>
-        <mj-text align="center" font-size="24px" font-weight="bold">
-          {{#if headerTitle}}{{headerTitle}}{{else}}Email{{/if}}
-        </mj-text>
-      </mj-column>
-    </mj-section>
-
     <!-- Main Content -->
     {{{content}}}
 
