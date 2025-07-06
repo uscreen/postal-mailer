@@ -214,7 +214,7 @@ Send a `template` rendered with `data` `to` a recepient with a `subject`.
 
 ## Changelog
 
-### 1.0.0
+### 1.0.0-beta
 
 - added layout inheritance system for templates
 - templates can now extend from base layouts to reduce duplication
