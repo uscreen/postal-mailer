@@ -1,0 +1,48 @@
+<mjml>
+  <mj-head>
+    <mj-title>{{title}}</mj-title>
+    <mj-preview>{{preview}}</mj-preview>
+    <mj-attributes>
+      <mj-all font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" />
+      <mj-text font-weight="400" font-size="16px" color="#262626" line-height="24px" />
+      <mj-section padding="0px" />
+    </mj-attributes>
+    <mj-style>
+      .secondary-link {
+        color: #0066cc !important;
+        text-decoration: none !important;
+      }
+      .secondary-link:hover {
+        text-decoration: underline !important;
+      }
+      {{#if customStyles}}
+      {{{customStyles}}}
+      {{/if}}
+    </mj-style>
+  </mj-head>
+  <mj-body background-color="#f5f5f5">
+    <!-- Header -->
+    <mj-section padding="20px 0">
+      <mj-column>
+        <mj-text align="center" font-size="24px" font-weight="bold">
+          {{#if headerTitle}}{{headerTitle}}{{else}}Email{{/if}}
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Main Content -->
+    {{{content}}}
+
+    <!-- Footer -->
+    {{#unless hideFooter}}
+    <mj-section padding="40px 0 20px">
+      <mj-column>
+        <mj-divider border-color="#e0e0e0" />
+        <mj-text align="center" font-size="12px" color="#666666" padding-top="20px">
+          {{#if footerText}}{{footerText}}{{else}}© 2024 Your Company. All rights reserved.{{/if}}
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    {{/unless}}
+  </mj-body>
+</mjml>

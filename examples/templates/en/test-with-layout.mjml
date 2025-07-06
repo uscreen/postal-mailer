@@ -1,0 +1,36 @@
+<!-- @meta
+layout: base.mjml
+title: "Test Mail"
+preview: "A simple test email"
+headerTitle: "Test Email"
+footerText: "ACME Inc, Street. 1, 12345 City"
+-->
+
+<!-- @styles -->
+.header-section {
+  background-color: #ff781e !important;
+}
+<!-- @endstyles -->
+
+<!-- @content -->
+<mj-section background-color="#ff781e" padding="20px">
+  <mj-column width="100%">
+    <mj-text align="center" font-size="24px" color="#ffffff" font-weight="600">
+      A Simple Test Email [EN]
+    </mj-text>
+  </mj-column>
+</mj-section>
+
+<mj-section background-color="#FFFFFF" padding="40px 20px">
+  <mj-column width="100%">
+    <mj-text>
+      Greetings {{user.firstName}} {{user.lastName}},<br>
+      <br>
+      This is a simple example template with layout system.
+    </mj-text>
+    <mj-text>
+      Image URLs will be prefixed with:<br>"{{postalAssetsUrl}}"
+    </mj-text>
+  </mj-column>
+</mj-section>
+<!-- @endcontent -->

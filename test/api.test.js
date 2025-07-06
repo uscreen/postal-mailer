@@ -1,5 +1,5 @@
-const tap = require('tap')
 const nock = require('nock')
+const tap = require('tap')
 const { build } = require('./helper')
 
 const interceptor = require('./interceptor')
@@ -15,8 +15,8 @@ const postalMock = (app, returnCode = 200, additional) => {
       data: {
         messages: {
           KEY: {
-            id: 'ID',
-            token: 'TOKEN',
+            'id': 'ID',
+            'token': 'TOKEN',
             'message-id': 'SOME_MSG_ID',
             'x-postal-msgid': 'SOME_POSTAL_MSG_ID'
           }
@@ -108,8 +108,7 @@ tap.test('sendmail: postal', async (t) => {
 
   t.test(`should send with fallback locale`, async (t) => {
     const mock = postalMock(app, 200, (body) => {
-      if (body.plain_body !== 'EN: bar' || !body.html_body.match(/EN: bar/))
-        return false
+      if (body.plain_body !== 'EN: bar' || !body.html_body.match(/EN: bar/)) { return false }
 
       return true
     })
@@ -123,8 +122,7 @@ tap.test('sendmail: postal', async (t) => {
 
   t.test(`should send with different locale`, async (t) => {
     const mock = postalMock(app, 200, (body) => {
-      if (body.plain_body !== 'DE: bar' || !body.html_body.match(/DE: bar/))
-        return false
+      if (body.plain_body !== 'DE: bar' || !body.html_body.match(/DE: bar/)) { return false }
 
       return true
     })
@@ -143,7 +141,8 @@ tap.test('sendmail: postal', async (t) => {
       delete payload[prop]
       try {
         await app.sendMail(payload)
-      } catch (error) {
+      }
+      catch (error) {
         t.ok(
           error && error.code === 'ERR_ASSERTION' && error.operator === '==',
           `should fail on missing property ${prop}`
@@ -172,7 +171,8 @@ tap.test('sendmail: postal', async (t) => {
     ]
     try {
       await app.sendMail(payload)
-    } catch (error) {
+    }
+    catch (error) {
       t.ok(
         error && error.code === 'ERR_ASSERTION' && error.operator === '==',
         `should fail on invalid attachment data`
@@ -188,7 +188,8 @@ tap.test('sendmail: postal', async (t) => {
     ]
     try {
       await app.sendMail(payload)
-    } catch (error) {
+    }
+    catch (error) {
       t.ok(
         error && error.code === 'ERR_ASSERTION' && error.operator === '==',
         `should fail on invalid attachment data`
