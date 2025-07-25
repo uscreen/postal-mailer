@@ -1,6 +1,6 @@
 {
   "name": "@uscreen.de/postal-mailer",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0",
   "description": "Mailer engine using mjml templates to send mail via postal api or smtp",
   "author": "Marcus Spiegel <spiegel@uscreen.de>",
   "license": "MIT",
