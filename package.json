@@ -12,7 +12,6 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint --fix",
-    "prepare": "husky install",
     "test:disabled": "tap test/**/*.test.js",
     "test:cov": "tap --coverage-report=html test/**/*.test.js",
     "test:ci": "tap --coverage-report=lcovonly test/**/*.test.js"
@@ -31,14 +30,9 @@
     "@uscreen.de/dev-service": "^0.12.12",
     "@uscreen.de/eslint-config-prettystandard-node": "^0.2.12",
     "deep-equal": "^2.2.3",
-    "husky": "^9.1.7",
-    "lint-staged": "^16.1.2",
     "mailhog": "^4.16.0",
     "nock": "^14.0.6",
     "tap": "^16.3.10"
-  },
-  "lint-staged": {
-    "*.js": "eslint --cache --fix"
   },
   "services": [
     {
