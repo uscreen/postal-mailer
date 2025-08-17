@@ -49,7 +49,7 @@ importers:
         specifier: ^4.16.0
         version: 4.16.0
       nock:
-        specifier: ^14.0.6
+        specifier: ^14.0.10
         version: 14.0.10
       tap:
         specifier: ^16.3.10

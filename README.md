@@ -214,6 +214,12 @@ Send a `template` rendered with `data` `to` a recepient with a `subject`.
 
 ## Changelog
 
+### 1.0.0
+
+- use pnpm as the package manager
+- use htmlnano for minification to fix CVE-2022-37620
+- added front matter support for parameters (ie. `subject`)
+
 ### 1.0.0-beta
 
 - added layout inheritance system for templates
