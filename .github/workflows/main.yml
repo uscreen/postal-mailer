@@ -31,16 +31,16 @@ jobs:
       - name: Install packages
         run: pnpm install
 
-      - name: Start Mailhog
-        run: docker run -d --rm -p 1025:1025 -p 8025:8025 --name mailhog mailhog/mailhog
+      - name: Start Mailpit
+        run: docker run -d --rm -p 1025:1025 -p 8025:8025 --name mailpit axllent/mailpit:latest
 
       - name: Run tests
         run: pnpm run test:ci
         env:
           NODE_OPTIONS: '--dns-result-order=ipv4first'
 
-      - name: Stop Mailhog
-        run: docker stop mailhog
+      - name: Stop Mailpit
+        run: docker stop mailpit
 
       - name: Coveralls
         uses: coverallsapp/github-action@master
