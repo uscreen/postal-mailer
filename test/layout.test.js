@@ -1,7 +1,7 @@
-const fs = require('node:fs')
-const path = require('node:path')
-const tap = require('tap')
-const { build } = require('./helper')
+import fs from 'node:fs'
+import path from 'node:path'
+import tap from 'tap'
+import { build } from './helper.js'
 
 // Create test templates with layout
 const createTestTemplates = (t) => {

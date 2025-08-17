@@ -1,8 +1,6 @@
-const mailhog = require('mailhog')
-
-const tap = require('tap')
-
-const { build } = require('./helper')
+import mailhog from 'mailhog'
+import tap from 'tap'
+import { build } from './helper.js'
 
 const defaultPayload = () => ({
   template: 'test',

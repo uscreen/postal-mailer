@@ -1,6 +1,6 @@
 {
   "name": "@uscreen.de/postal-mailer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Mailer engine using mjml templates to send mail via postal api or smtp",
   "author": "Marcus Spiegel <spiegel@uscreen.de>",
   "license": "MIT",
@@ -9,7 +9,11 @@
     "type": "git",
     "url": "git+https://github.com/uscreen/postal-mailer.git"
   },
+  "type": "module",
   "main": "index.js",
+  "exports": {
+    ".": "./index.js"
+  },
   "scripts": {
     "lint": "eslint --fix",
     "test": "tap test/**/*.test.js",

@@ -1,8 +1,7 @@
-const nock = require('nock')
-const tap = require('tap')
-const { build } = require('./helper')
-
-const interceptor = require('./interceptor')
+import nock from 'nock'
+import tap from 'tap'
+import { build } from './helper.js'
+import { intercept } from './interceptor.js'
 
 const clearMocks = () => {
   nock.cleanAll()
@@ -26,7 +25,7 @@ const postalMock = (app, returnCode = 200, additional) => {
   }
 
   return nock(`https://${app.postalOptions.postalServer}`)
-    .post('/api/v1/send/message', interceptor.intercept(additional))
+    .post('/api/v1/send/message', intercept(additional))
     .reply(returnCode, replies[returnCode])
 }
 

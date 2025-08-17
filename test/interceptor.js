@@ -1,4 +1,4 @@
-const equal = require('deep-equal')
+import equal from 'deep-equal'
 
 const defaults = () => ({
   to: ['foo@domain.com'],
@@ -29,6 +29,6 @@ const intercept =
     return equal(body, data) && customInterceptor({ ...body, ...retained })
   }
 
-module.exports = {
+export {
   intercept
 }

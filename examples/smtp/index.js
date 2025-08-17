@@ -1,9 +1,9 @@
-'use strict'
-
 /**
  * configure
  */
-const mailer = require('../../index')({
+import mailer from '../../index.js'
+
+const mailerInstance = mailer({
   // load config defaults from .env file
   useDotenv: true,
 
@@ -29,7 +29,7 @@ const data = {
  * send mail
  */
 const send = async () => {
-  const result = await mailer
+  const result = await mailerInstance
     .sendMail({
       data,
       template: 'test',

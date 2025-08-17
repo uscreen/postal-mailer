@@ -1,5 +1,3 @@
-'use strict'
+import lib from './lib/index.js'
 
-const lib = require('./lib')
-
-module.exports = (opts) => lib({ opts })
+export default (opts) => lib({ opts })

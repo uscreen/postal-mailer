@@ -1,2 +1,13 @@
 examples
 coverage
+.envrc
+.eslintrc.js
+.github
+.nvmrc
+.nyc_output
+.prettierrc
+.taprc
+AGENTS.md
+README.md
+test-rendering.js
+test

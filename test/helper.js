@@ -1,9 +1,6 @@
-'use strict'
-
-const path = require('node:path')
-const process = require('node:process')
-
-const app = require('../index')
+import path from 'node:path'
+import process from 'node:process'
+import app from '../index.js'
 
 const postalDefaults = () => ({
   postalTemplates: path.join(process.cwd(), 'test/templates'),
@@ -23,6 +20,6 @@ const build = async (t, options = {}) => {
   return { postalOptions, client, sendMail, compileHtmlBody, compilePlainBody }
 }
 
-module.exports = {
+export {
   build
 }
