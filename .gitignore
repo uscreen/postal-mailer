@@ -6,3 +6,4 @@
 /.dccache
 /.nyc_output
 test-output/
+/coverage
