@@ -1,4 +1,3 @@
-import mailhog from 'mailhog'
 import { test, beforeEach, describe } from 'node:test'
 import assert from 'node:assert'
 import { build } from './helper.js'
@@ -13,13 +12,89 @@ const defaultPayload = () => ({
   locale: 'de'
 })
 
+const mailpitClient = (host) => ({
+  async messages() {
+    try {
+      const response = await fetch(`http://${host}:8025/api/v1/messages`)
+      if (!response.ok) {
+        throw new Error(`Failed to fetch messages: ${response.statusText}`)
+      }
+      const data = await response.json()
+      
+      if (!data.messages || !Array.isArray(data.messages)) {
+        console.error('Unexpected response structure:', data)
+        throw new Error('Invalid response structure from Mailpit API')
+      }
+      
+      const items = await Promise.all(
+        data.messages.map(async (msg) => {
+          const msgResponse = await fetch(`http://${host}:8025/api/v1/message/${msg.ID}`)
+          if (!msgResponse.ok) {
+            throw new Error(`Failed to fetch message ${msg.ID}: ${msgResponse.statusText}`)
+          }
+          const fullMsg = await msgResponse.json()
+          
+          // Get raw message content for attachment verification
+          const rawResponse = await fetch(`http://${host}:8025/api/v1/message/${msg.ID}/raw`)
+          const rawContent = rawResponse.ok ? await rawResponse.text() : ''
+          
+          // Combine To and Bcc addresses for Raw.To (MailHog compatibility)
+          const allRecipients = [
+            ...(fullMsg.To?.map(t => t.Address) || []),
+            ...(fullMsg.Bcc?.map(b => b.Address) || [])
+          ]
+          
+          return {
+            from: fullMsg.From?.Address || '',
+            to: fullMsg.To?.[0]?.Address || '',
+            cc: fullMsg.Cc?.[0]?.Address || '',
+            subject: fullMsg.Subject || '',
+            html: fullMsg.HTML || '',
+            text: fullMsg.Text || '',
+            Raw: {
+              To: allRecipients
+            },
+            Content: {
+              Body: rawContent
+            }
+          }
+        })
+      )
+      
+      return {
+        total: data.messages_count || 0,
+        items
+      }
+    } catch (error) {
+      console.error('Error in mailpitClient.messages():', error)
+      throw error
+    }
+  },
+
+  async deleteAll() {
+    try {
+      const response = await fetch(`http://${host}:8025/api/v1/messages`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({})
+      })
+      if (!response.ok) {
+        throw new Error(`Failed to delete messages: ${response.statusText}`)
+      }
+    } catch (error) {
+      console.error('Error in mailpitClient.deleteAll():', error)
+      throw error
+    }
+  }
+})
+
 describe('sendmail: smtp', () => {
-  let app, mhClient
+  let app, mpClient
 
   beforeEach(async () => {
     app = await build({ postalTransport: 'smtp' })
-    mhClient = mailhog({ host: app.postalOptions.postalServer })
-    await mhClient.deleteAll()
+    mpClient = mailpitClient(app.postalOptions.postalServer)
+    await mpClient.deleteAll()
   })
 
   test('should send email', async () => {
@@ -35,7 +110,7 @@ describe('sendmail: smtp', () => {
     assert.ok(result.messageId, 'should have message id')
     assert.strictEqual(result.__pmtransport, 'smtp', 'should use smtp as transport')
 
-    const messages = await mhClient.messages()
+    const messages = await mpClient.messages()
 
     assert.strictEqual(messages.total, 1, 'should have 1 mail sent')
 
@@ -66,7 +141,7 @@ describe('sendmail: smtp', () => {
       'should have accepted all mail addresses'
     )
 
-    const messages = await mhClient.messages()
+    const messages = await mpClient.messages()
     assert.strictEqual(messages.total, 1, 'should have 1 mail sent')
 
     const message = messages.items[0]
@@ -89,7 +164,7 @@ describe('sendmail: smtp', () => {
       'should have accepted all mail addresses'
     )
 
-    const messages = await mhClient.messages()
+    const messages = await mpClient.messages()
     assert.strictEqual(messages.total, 1, 'should have 1 mail sent')
 
     const message = messages.items[0]
@@ -105,7 +180,7 @@ describe('sendmail: smtp', () => {
 
     assert.ok(result, 'should have result')
 
-    const messages = await mhClient.messages()
+    const messages = await mpClient.messages()
     assert.strictEqual(messages.total, 1, 'should have 1 mail sent')
     const message = messages.items[0]
     assert.strictEqual(
@@ -122,7 +197,7 @@ describe('sendmail: smtp', () => {
 
     assert.ok(result, 'should have result')
 
-    const messages = await mhClient.messages()
+    const messages = await mpClient.messages()
     assert.strictEqual(messages.total, 1, 'should have 1 mail sent')
 
     const message = messages.items[0]
@@ -137,7 +212,7 @@ describe('sendmail: smtp', () => {
     const result = await app.sendMail(payload)
     assert.ok(result, 'should have result')
 
-    const messages = await mhClient.messages()
+    const messages = await mpClient.messages()
     assert.strictEqual(messages.total, 1, 'should have 1 mail sent')
     const message = messages.items[0]
     assert.ok(
