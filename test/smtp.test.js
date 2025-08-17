@@ -1,5 +1,6 @@
 import mailhog from 'mailhog'
-import tap from 'tap'
+import { test, beforeEach, describe } from 'node:test'
+import assert from 'node:assert'
 import { build } from './helper.js'
 
 const defaultPayload = () => ({
@@ -12,219 +13,173 @@ const defaultPayload = () => ({
   locale: 'de'
 })
 
-tap.test('sendmail: smtp', async (t) => {
-  const app = await build(t, { postalTransport: 'smtp' })
-  const mhClient = mailhog({ host: app.postalOptions.postalServer })
+describe('sendmail: smtp', () => {
+  let app, mhClient
 
-  t.beforeEach(async () => await mhClient.deleteAll())
-
-  t.test('should send email', async (t) => {
-    try {
-      const payload = defaultPayload()
-      const result = await app.sendMail(payload)
-      t.ok(result, 'should have result')
-      t.equal(
-        result.accepted.length,
-        1,
-        'should have accepted all mail addresses'
-      )
-
-      t.ok(result.messageId, 'should have message id')
-      t.equal(result.__pmtransport, 'smtp', 'should use smtp as transport')
-
-      const messages = await mhClient.messages()
-
-      t.equal(messages.total, 1, 'should have 1 mail sent')
-
-      const sentMail = messages.items[0]
-
-      t.equal(
-        sentMail.from,
-        'mail@domain.com',
-        'should send from mail@domain.com'
-      )
-      t.equal(sentMail.to, 'foo@domain.com', 'should send to foo@domain.com')
-      t.equal(sentMail.subject, 'test', 'should send "test" as subject')
-      t.ok(
-        sentMail.html && sentMail.html.match(/DE: bar/),
-        'should have html body and templating enabled'
-      )
-      t.ok(sentMail.text === 'DE: bar', 'should have plain text')
-    }
-    catch (error) {
-      console.log('error', error)
-    }
-    t.end()
+  beforeEach(async () => {
+    app = await build({ postalTransport: 'smtp' })
+    mhClient = mailhog({ host: app.postalOptions.postalServer })
+    await mhClient.deleteAll()
   })
 
-  t.test('should send to cc', async (t) => {
-    try {
-      const payload = defaultPayload()
-      payload.cc = ['cc@domain.com']
-      const result = await app.sendMail(payload)
-      t.ok(result, 'should have result')
-      t.equal(
-        result.accepted.length,
-        2,
-        'should have accepted all mail addresses'
-      )
+  test('should send email', async () => {
+    const payload = defaultPayload()
+    const result = await app.sendMail(payload)
+    assert.ok(result, 'should have result')
+    assert.strictEqual(
+      result.accepted.length,
+      1,
+      'should have accepted all mail addresses'
+    )
 
-      const messages = await mhClient.messages()
-      t.equal(messages.total, 1, 'should have 1 mail sent')
+    assert.ok(result.messageId, 'should have message id')
+    assert.strictEqual(result.__pmtransport, 'smtp', 'should use smtp as transport')
 
-      const message = messages.items[0]
-      t.equal(
-        message.from,
-        'mail@domain.com',
-        'should send from mail@domain.com'
-      )
-      t.equal(message.cc, 'cc@domain.com', 'should send CC to cc@domain.com')
-    }
-    catch (error) {
-      console.log('error', error)
-    }
+    const messages = await mhClient.messages()
+
+    assert.strictEqual(messages.total, 1, 'should have 1 mail sent')
+
+    const sentMail = messages.items[0]
+
+    assert.strictEqual(
+      sentMail.from,
+      'mail@domain.com',
+      'should send from mail@domain.com'
+    )
+    assert.strictEqual(sentMail.to, 'foo@domain.com', 'should send to foo@domain.com')
+    assert.strictEqual(sentMail.subject, 'test', 'should send "test" as subject')
+    assert.ok(
+      sentMail.html && sentMail.html.match(/DE: bar/),
+      'should have html body and templating enabled'
+    )
+    assert.ok(sentMail.text === 'DE: bar', 'should have plain text')
   })
 
-  t.test('should send to bcc', async (t) => {
-    try {
-      const payload = defaultPayload()
-      payload.bcc = ['bcc1@domain.com', 'bcc2@domain.com']
-      const result = await app.sendMail(payload)
-      t.ok(result, 'should have result')
-      t.equal(
-        result.accepted.length,
-        3,
-        'should have accepted all mail addresses'
-      )
+  test('should send to cc', async () => {
+    const payload = defaultPayload()
+    payload.cc = ['cc@domain.com']
+    const result = await app.sendMail(payload)
+    assert.ok(result, 'should have result')
+    assert.strictEqual(
+      result.accepted.length,
+      2,
+      'should have accepted all mail addresses'
+    )
 
-      const messages = await mhClient.messages()
-      t.equal(messages.total, 1, 'should have 1 mail sent')
+    const messages = await mhClient.messages()
+    assert.strictEqual(messages.total, 1, 'should have 1 mail sent')
 
-      const message = messages.items[0]
-      payload.bcc.forEach((addr) => {
-        t.ok(message.Raw.To.includes(addr), `should send BCC to ${addr}`)
-      })
-    }
-    catch (error) {
-      console.log('error', error)
-    }
+    const message = messages.items[0]
+    assert.strictEqual(
+      message.from,
+      'mail@domain.com',
+      'should send from mail@domain.com'
+    )
+    assert.strictEqual(message.cc, 'cc@domain.com', 'should send CC to cc@domain.com')
   })
 
-  t.test('should send from different sender', async (t) => {
-    try {
-      const payload = defaultPayload()
-      payload.from = 'test@somewhere.com'
-      const result = await app.sendMail(payload)
+  test('should send to bcc', async () => {
+    const payload = defaultPayload()
+    payload.bcc = ['bcc1@domain.com', 'bcc2@domain.com']
+    const result = await app.sendMail(payload)
+    assert.ok(result, 'should have result')
+    assert.strictEqual(
+      result.accepted.length,
+      3,
+      'should have accepted all mail addresses'
+    )
 
-      t.ok(result, 'should have result')
+    const messages = await mhClient.messages()
+    assert.strictEqual(messages.total, 1, 'should have 1 mail sent')
 
-      const messages = await mhClient.messages()
-      t.equal(messages.total, 1, 'should have 1 mail sent')
-      const message = messages.items[0]
-      t.equal(
-        message.from,
-        'test@somewhere.com',
-        'should send from test@somewhere.com'
-      )
-    }
-    catch (error) {
-      console.log('error', error)
-    }
-    t.end()
+    const message = messages.items[0]
+    payload.bcc.forEach((addr) => {
+      assert.ok(message.Raw.To.includes(addr), `should send BCC to ${addr}`)
+    })
   })
 
-  t.test('should send with default locale', async (t) => {
-    try {
-      const payload = defaultPayload()
-      delete payload.locale
-      const result = await app.sendMail(payload)
+  test('should send from different sender', async () => {
+    const payload = defaultPayload()
+    payload.from = 'test@somewhere.com'
+    const result = await app.sendMail(payload)
 
-      t.ok(result, 'should have result')
+    assert.ok(result, 'should have result')
 
-      const messages = await mhClient.messages()
-      t.equal(messages.total, 1, 'should have 1 mail sent')
-
-      const message = messages.items[0]
-      t.ok(message.text === 'EN: bar', 'should return English text')
-    }
-    catch (error) {
-      console.log('error', error)
-    }
-    t.end()
+    const messages = await mhClient.messages()
+    assert.strictEqual(messages.total, 1, 'should have 1 mail sent')
+    const message = messages.items[0]
+    assert.strictEqual(
+      message.from,
+      'test@somewhere.com',
+      'should send from test@somewhere.com'
+    )
   })
 
-  t.test('should send email with attachment', async (t) => {
+  test('should send with default locale', async () => {
+    const payload = defaultPayload()
+    delete payload.locale
+    const result = await app.sendMail(payload)
+
+    assert.ok(result, 'should have result')
+
+    const messages = await mhClient.messages()
+    assert.strictEqual(messages.total, 1, 'should have 1 mail sent')
+
+    const message = messages.items[0]
+    assert.ok(message.text === 'EN: bar', 'should return English text')
+  })
+
+  test('should send email with attachment', async () => {
     const payload = defaultPayload()
     payload.attachments = [
       { filename: 'test.jpg', contentType: 'image/jpg', data: '' }
     ]
-    try {
-      const result = await app.sendMail(payload)
-      t.ok(result, 'should have result')
+    const result = await app.sendMail(payload)
+    assert.ok(result, 'should have result')
 
-      const messages = await mhClient.messages()
-      t.equal(messages.total, 1, 'should have 1 mail sent')
-      const message = messages.items[0]
-      t.ok(
-        message.Content.Body.includes('Content-Type: image/jpg; name=test.jpg'),
-        'should have attachment included'
-      )
-    }
-    catch (error) {
-      console.log('error', error)
-    }
-    t.end()
+    const messages = await mhClient.messages()
+    assert.strictEqual(messages.total, 1, 'should have 1 mail sent')
+    const message = messages.items[0]
+    assert.ok(
+      message.Content.Body.includes('Content-Type: image/jpg; name=test.jpg'),
+      'should have attachment included'
+    )
   })
 
-  t.test('should fail without required properties', async (t) => {
+  test('should fail without required properties', async () => {
     const props = ['template', 'data', 'to', 'subject']
     for (const prop of props) {
       const payload = defaultPayload()
       delete payload[prop]
-      try {
-        await app.sendMail(payload)
-      }
-      catch (error) {
-        t.ok(
-          error && error.code === 'ERR_ASSERTION' && error.operator === '==',
-          `should fail on missing property ${prop}`
-        )
-      }
+      await assert.rejects(
+        () => app.sendMail(payload),
+        (error) => error && error.code === 'ERR_ASSERTION' && error.operator === '==',
+        `should fail on missing property ${prop}`
+      )
     }
-    t.end()
   })
 
-  t.test('should fail on invalid attachment data', async (t) => {
+  test('should fail on invalid attachment data', async () => {
     const payload = defaultPayload()
     payload.attachments = [
       { filename: 'test.jpg', contentType: 'image/jpg', data: {} }
     ]
-    try {
-      await app.sendMail(payload)
-    }
-    catch (error) {
-      t.ok(
-        error && error.code === 'ERR_ASSERTION' && error.operator === '==',
-        `should fail on invalid attachment data`
-      )
-    }
-    t.end()
+    await assert.rejects(
+      () => app.sendMail(payload),
+      (error) => error && error.code === 'ERR_ASSERTION' && error.operator === '==',
+      'should fail on invalid attachment data'
+    )
   })
 
-  t.test('should fail on invalid attachment filename', async (t) => {
+  test('should fail on invalid attachment filename', async () => {
     const payload = defaultPayload()
     payload.attachments = [
       { filename: null, contentType: 'image/jpg', data: '' }
     ]
-    try {
-      await app.sendMail(payload)
-    }
-    catch (error) {
-      t.ok(
-        error && error.code === 'ERR_ASSERTION' && error.operator === '==',
-        `should fail on invalid attachment data`
-      )
-    }
-    t.end()
+    await assert.rejects(
+      () => app.sendMail(payload),
+      (error) => error && error.code === 'ERR_ASSERTION' && error.operator === '==',
+      'should fail on invalid attachment data'
+    )
   })
 })

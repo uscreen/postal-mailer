@@ -1,5 +1,6 @@
 import nock from 'nock'
-import tap from 'tap'
+import { test, beforeEach, describe } from 'node:test'
+import assert from 'node:assert'
 import { build } from './helper.js'
 import { intercept } from './interceptor.js'
 
@@ -39,33 +40,34 @@ const defaultPayload = () => ({
   locale: 'en'
 })
 
-tap.test('sendmail: postal', async (t) => {
-  const app = await build(t, { postalTransport: 'postal' })
+describe('sendmail: postal', () => {
+  let app
 
-  t.beforeEach(() => clearMocks)
+  beforeEach(async () => {
+    app = await build({ postalTransport: 'postal' })
+    clearMocks()
+  })
 
-  t.test('should send email', async (t) => {
+  test('should send email', async () => {
     const mock = postalMock(app)
 
     const answer = await app.sendMail(defaultPayload())
 
-    t.ok(mock.isDone(), 'should send message to postal')
-    t.equal(answer.__pmtransport, 'postal', 'should indicate correct transport')
-    t.ok(answer, 'should have an answer')
-    t.ok(answer.client, 'answer should have client')
-    t.ok(answer.result, 'answer should have result')
-    t.ok(answer.result.messages, 'answer should have messages')
-    t.ok(answer.result.messages.KEY, 'messages should have keyed value')
-    t.ok(answer.result.messages.KEY['message-id'], 'should have a message id')
-    t.ok(
+    assert.ok(mock.isDone(), 'should send message to postal')
+    assert.strictEqual(answer.__pmtransport, 'postal', 'should indicate correct transport')
+    assert.ok(answer, 'should have an answer')
+    assert.ok(answer.client, 'answer should have client')
+    assert.ok(answer.result, 'answer should have result')
+    assert.ok(answer.result.messages, 'answer should have messages')
+    assert.ok(answer.result.messages.KEY, 'messages should have keyed value')
+    assert.ok(answer.result.messages.KEY['message-id'], 'should have a message id')
+    assert.ok(
       answer.result.messages.KEY['x-postal-msgid'],
       'should have a postal message id'
     )
-
-    t.end()
   })
 
-  t.test('should send email to cc and bcc', async (t) => {
+  test('should send email to cc and bcc', async () => {
     const mock = postalMock(app, 200, {
       cc: [['cc@domain.com']],
       bcc: [['bcc1@domain.com', 'bcc2@domain.com']]
@@ -77,35 +79,31 @@ tap.test('sendmail: postal', async (t) => {
 
     const answer = await app.sendMail(payload)
 
-    t.ok(mock.isDone(), 'should send message to postal')
-    t.equal(answer.__pmtransport, 'postal', 'should indicate correct transport')
-    t.ok(answer, 'should have an answer')
-    t.ok(answer.client, 'answer should have client')
-    t.ok(answer.result, 'answer should have result')
-    t.ok(answer.result.messages, 'answer should have messages')
-    t.ok(answer.result.messages.KEY, 'messages should have keyed value')
-    t.ok(answer.result.messages.KEY['message-id'], 'should have a message id')
-    t.ok(
+    assert.ok(mock.isDone(), 'should send message to postal')
+    assert.strictEqual(answer.__pmtransport, 'postal', 'should indicate correct transport')
+    assert.ok(answer, 'should have an answer')
+    assert.ok(answer.client, 'answer should have client')
+    assert.ok(answer.result, 'answer should have result')
+    assert.ok(answer.result.messages, 'answer should have messages')
+    assert.ok(answer.result.messages.KEY, 'messages should have keyed value')
+    assert.ok(answer.result.messages.KEY['message-id'], 'should have a message id')
+    assert.ok(
       answer.result.messages.KEY['x-postal-msgid'],
       'should have a postal message id'
     )
-
-    t.end()
   })
 
-  t.test('should send from different sender', async (t) => {
+  test('should send from different sender', async () => {
     const mock = postalMock(app, 200, { from: 'test@somewhere.com' })
 
     const payload = defaultPayload()
     payload.from = 'test@somewhere.com'
 
     await app.sendMail(payload)
-    t.ok(mock.isDone(), 'should send message to postal')
-
-    t.end()
+    assert.ok(mock.isDone(), 'should send message to postal')
   })
 
-  t.test(`should send with fallback locale`, async (t) => {
+  test('should send with fallback locale', async () => {
     const mock = postalMock(app, 200, (body) => {
       if (body.plain_body !== 'EN: bar' || !body.html_body.match(/EN: bar/)) { return false }
 
@@ -114,12 +112,10 @@ tap.test('sendmail: postal', async (t) => {
     const payload = defaultPayload()
     delete payload.locale
     await app.sendMail(payload)
-    t.ok(mock.isDone(), 'should send message to postal')
-
-    t.end()
+    assert.ok(mock.isDone(), 'should send message to postal')
   })
 
-  t.test(`should send with different locale`, async (t) => {
+  test('should send with different locale', async () => {
     const mock = postalMock(app, 200, (body) => {
       if (body.plain_body !== 'DE: bar' || !body.html_body.match(/DE: bar/)) { return false }
 
@@ -128,72 +124,53 @@ tap.test('sendmail: postal', async (t) => {
     const payload = defaultPayload()
     payload.locale = 'de'
     await app.sendMail(payload)
-    t.ok(mock.isDone(), 'should send message to postal')
-
-    t.end()
+    assert.ok(mock.isDone(), 'should send message to postal')
   })
 
-  t.test(`should fail without required properties`, async (t) => {
+  test('should fail without required properties', async () => {
     const props = ['template', 'data', 'to', 'subject']
     for (const prop of props) {
       const payload = defaultPayload()
       delete payload[prop]
-      try {
-        await app.sendMail(payload)
-      }
-      catch (error) {
-        t.ok(
-          error && error.code === 'ERR_ASSERTION' && error.operator === '==',
-          `should fail on missing property ${prop}`
-        )
-      }
+      await assert.rejects(
+        () => app.sendMail(payload),
+        (error) => error && error.code === 'ERR_ASSERTION' && error.operator === '==',
+        `should fail on missing property ${prop}`
+      )
     }
-    t.end()
   })
 
-  t.test(`should send email with attachment`, async (t) => {
+  test('should send email with attachment', async () => {
     const mock = postalMock(app)
     const payload = defaultPayload()
     payload.attachments = [
       { filename: 'test.jpg', contentType: 'image/jpg', data: '' }
     ]
     await app.sendMail(payload)
-    t.ok(mock.isDone(), 'should send message to postal')
-
-    t.end()
+    assert.ok(mock.isDone(), 'should send message to postal')
   })
 
-  t.test('should fail on invalid attachment data', async (t) => {
+  test('should fail on invalid attachment data', async () => {
     const payload = defaultPayload()
     payload.attachments = [
       { filename: 'test.jpg', contentType: 'image/jpg', data: {} }
     ]
-    try {
-      await app.sendMail(payload)
-    }
-    catch (error) {
-      t.ok(
-        error && error.code === 'ERR_ASSERTION' && error.operator === '==',
-        `should fail on invalid attachment data`
-      )
-    }
-    t.end()
+    await assert.rejects(
+      () => app.sendMail(payload),
+      (error) => error && error.code === 'ERR_ASSERTION' && error.operator === '==',
+      'should fail on invalid attachment data'
+    )
   })
 
-  t.test('should fail on invalid attachment filename', async (t) => {
+  test('should fail on invalid attachment filename', async () => {
     const payload = defaultPayload()
     payload.attachments = [
       { filename: null, contentType: 'image/jpg', data: '' }
     ]
-    try {
-      await app.sendMail(payload)
-    }
-    catch (error) {
-      t.ok(
-        error && error.code === 'ERR_ASSERTION' && error.operator === '==',
-        `should fail on invalid attachment data`
-      )
-    }
-    t.end()
+    await assert.rejects(
+      () => app.sendMail(payload),
+      (error) => error && error.code === 'ERR_ASSERTION' && error.operator === '==',
+      'should fail on invalid attachment data'
+    )
   })
 })

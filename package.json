@@ -16,9 +16,9 @@
   },
   "scripts": {
     "lint": "eslint --fix",
-    "test": "tap test/**/*.test.js",
-    "test:cov": "tap --coverage-report=html test/**/*.test.js",
-    "test:ci": "tap --coverage-report=lcovonly test/**/*.test.js"
+    "test": "node --test test/**/*.test.js",
+    "test:cov": "node --test --experimental-test-coverage test/**/*.test.js",
+    "test:ci": "node --test --experimental-test-coverage test/**/*.test.js"
   },
   "dependencies": {
     "@atech/postal": "^1.0.0",
@@ -35,8 +35,7 @@
     "@uscreen.de/eslint-config-prettystandard-node": "^0.2.12",
     "deep-equal": "^2.2.3",
     "mailhog": "^4.16.0",
-    "nock": "^14.0.10",
-    "tap": "^16.3.10"
+    "nock": "^14.0.10"
   },
   "services": [
     {

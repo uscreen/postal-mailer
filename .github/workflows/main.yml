@@ -5,16 +5,16 @@ name: Test CI
 
 on:
   push:
-    branches: ["master", "main", "1.0.0-beta"]
+    branches: ["master", "main"]
   pull_request:
-    branches: ["master", "main", "1.0.0-beta"]
+    branches: ["master", "main"]
 
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18, 20, 22, 24]
+        node-version: [20, 22, 24]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3

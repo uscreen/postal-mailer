@@ -13,7 +13,7 @@ const postalDefaults = () => ({
   postalDefaultLocale: 'en'
 })
 
-const build = async (t, options = {}) => {
+const build = async (options = {}) => {
   const postalOptions = { ...postalDefaults(), ...options }
 
   const { client, sendMail, compileHtmlBody, compilePlainBody } = app(postalOptions)

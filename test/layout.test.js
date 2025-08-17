@@ -1,14 +1,22 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import tap from 'tap'
+import os from 'node:os'
+import { test, beforeEach, afterEach, describe } from 'node:test'
+import assert from 'node:assert'
 import { build } from './helper.js'
 
 // Create test templates with layout
-const createTestTemplates = (t) => {
-  const testDir = t.testdir({
-    de: {
-      'layouts': {
-        'base.mjml': `<mjml>
+const createTestTemplates = () => {
+  const testDir = fs.mkdtempSync(path.join(os.tmpdir(), 'layout-test-'))
+  
+  // Create directory structure
+  const deDir = path.join(testDir, 'de')
+  const layoutsDir = path.join(deDir, 'layouts')
+  fs.mkdirSync(deDir, { recursive: true })
+  fs.mkdirSync(layoutsDir, { recursive: true })
+  
+  // Create layout file
+  fs.writeFileSync(path.join(layoutsDir, 'base.mjml'), `<mjml>
   <mj-head>
     <mj-title>{{title}}</mj-title>
     <mj-preview>{{preview}}</mj-preview>
@@ -34,9 +42,10 @@ const createTestTemplates = (t) => {
     </mj-section>
     {{/unless}}
   </mj-body>
-</mjml>`
-      },
-      'test-layout.mjml': `<!-- @meta
+</mjml>`)
+
+  // Create test template with layout
+  fs.writeFileSync(path.join(deDir, 'test-layout.mjml'), `<!-- @meta
 layout: base.mjml
 title: "Test Email"
 preview: "This is a test"
@@ -53,8 +62,10 @@ headerText: "Header from variable"
     <mj-text>Hello {{name}}!</mj-text>
   </mj-column>
 </mj-section>
-<!-- @endcontent -->`,
-      'test-no-layout.mjml': `<mjml>
+<!-- @endcontent -->`)
+
+  // Create test template without layout
+  fs.writeFileSync(path.join(deDir, 'test-no-layout.mjml'), `<mjml>
   <mj-head>
     <mj-title>No Layout</mj-title>
   </mj-head>
@@ -65,41 +76,53 @@ headerText: "Header from variable"
       </mj-column>
     </mj-section>
   </mj-body>
-</mjml>`
-    }
-  })
+</mjml>`)
 
   return testDir
 }
 
-tap.test('layout system', async (t) => {
-  const testDir = createTestTemplates(t)
-  const app = await build(t, {
-    postalTransport: 'postal',
-    postalTemplates: testDir
+const cleanupTestDir = (testDir) => {
+  fs.rmSync(testDir, { recursive: true, force: true })
+}
+
+describe('layout system', () => {
+  let testDir, app
+
+  beforeEach(async () => {
+    testDir = createTestTemplates()
+    app = await build({
+      postalTransport: 'postal',
+      postalTemplates: testDir
+    })
   })
 
-  t.test('should process template with layout', async (t) => {
+  afterEach(() => {
+    if (testDir) {
+      cleanupTestDir(testDir)
+    }
+  })
+
+  test('should process template with layout', async () => {
     const html = app.compileHtmlBody('test-layout', { name: 'John' }, 'de')
 
     // Check that layout was applied
-    t.match(html, /Test Email/, 'should have title from layout variable')
-    t.match(html, /Header from variable/, 'should have header text from variable')
-    t.match(html, /Hello John!/, 'should have content with data')
-    t.match(html, /Footer/, 'should have footer from layout')
-    t.match(html, /\.custom.*color.*red/, 'should have custom styles')
+    assert.match(html, /Test Email/, 'should have title from layout variable')
+    assert.match(html, /Header from variable/, 'should have header text from variable')
+    assert.match(html, /Hello John!/, 'should have content with data')
+    assert.match(html, /Footer/, 'should have footer from layout')
+    assert.match(html, /\.custom.*color.*red/, 'should have custom styles')
   })
 
-  t.test('should process template without layout', async (t) => {
+  test('should process template without layout', async () => {
     const html = app.compileHtmlBody('test-no-layout', { name: 'Jane' }, 'de')
 
     // Check that template works without layout
-    t.match(html, /No Layout/, 'should have original title')
-    t.match(html, /Hello Jane without layout!/, 'should have content with data')
-    t.notMatch(html, /Footer/, 'should not have footer from layout')
+    assert.match(html, /No Layout/, 'should have original title')
+    assert.match(html, /Hello Jane without layout!/, 'should have content with data')
+    assert.doesNotMatch(html, /Footer/, 'should not have footer from layout')
   })
 
-  t.test('should support relative layout paths', async (t) => {
+  test('should support relative layout paths', async () => {
     // Create template with relative layout path
     const relativeLayoutPath = path.join(testDir, 'de', 'test-relative-layout.mjml')
     fs.writeFileSync(relativeLayoutPath, `<!-- @meta
@@ -116,12 +139,12 @@ headerText: "Relative Header"
     const html = app.compileHtmlBody('test-relative-layout', {}, 'de')
 
     // Check that layout was applied
-    t.match(html, /Relative Path Test/, 'should have title from layout')
-    t.match(html, /Relative Header/, 'should have header from variable')
-    t.match(html, /Content with relative layout/, 'should have content')
+    assert.match(html, /Relative Path Test/, 'should have title from layout')
+    assert.match(html, /Relative Header/, 'should have header from variable')
+    assert.match(html, /Content with relative layout/, 'should have content')
   })
 
-  t.test('should handle missing layout gracefully', async (t) => {
+  test('should handle missing layout gracefully', async () => {
     // Create template with non-existent layout
     const badLayoutPath = path.join(testDir, 'de', 'test-bad-layout.mjml')
     fs.writeFileSync(badLayoutPath, `<!-- @meta
@@ -136,10 +159,10 @@ layout: missing.mjml
     const html = app.compileHtmlBody('test-bad-layout', {}, 'de')
 
     // Should still compile the template
-    t.match(html, /Content/, 'should compile template even with missing layout')
+    assert.match(html, /Content/, 'should compile template even with missing layout')
   })
 
-  t.test('should handle layout without explicit content section', async (t) => {
+  test('should handle layout without explicit content section', async () => {
     // Create template without @content tags
     const noContentPath = path.join(testDir, 'de', 'test-no-content.mjml')
     fs.writeFileSync(noContentPath, `<!-- @meta
@@ -155,10 +178,10 @@ title: "No Content Tags"
     const html = app.compileHtmlBody('test-no-content', {}, 'de')
 
     // Should use everything after layout declaration as content
-    t.match(html, /This has no content tags/, 'should use content after layout declaration')
+    assert.match(html, /This has no content tags/, 'should use content after layout declaration')
   })
 
-  t.test('should support hideFooter variable', async (t) => {
+  test('should support hideFooter variable', async () => {
     // Create template that hides footer
     const noFooterPath = path.join(testDir, 'de', 'test-no-footer.mjml')
     fs.writeFileSync(noFooterPath, `<!-- @meta
@@ -175,12 +198,12 @@ title: "No Footer"
 
     const html = app.compileHtmlBody('test-no-footer', { hideFooter: true }, 'de')
 
-    t.match(html, /Content/, 'should have content')
+    assert.match(html, /Content/, 'should have content')
     // Check for footer text that's not part of the title
-    t.notMatch(html, />Footer</, 'should not have footer text when hideFooter is true')
+    assert.doesNotMatch(html, />Footer</, 'should not have footer text when hideFooter is true')
   })
 
-  t.test('should handle single-quoted values in front matter', async (t) => {
+  test('should handle single-quoted values in front matter', async () => {
     // Create template with single-quoted values
     const singleQuotePath = path.join(testDir, 'de', 'test-single-quotes.mjml')
     fs.writeFileSync(singleQuotePath, `<!-- @meta
@@ -197,12 +220,12 @@ headerText: 'Header with Single Quotes'
     const html = app.compileHtmlBody('test-single-quotes', {}, 'de')
 
     // Check that single-quoted values work
-    t.match(html, /Single Quoted Title/, 'should parse single-quoted title')
-    t.match(html, /Header with Single Quotes/, 'should parse single-quoted header')
-    t.match(html, /Content with single quotes/, 'should have content')
+    assert.match(html, /Single Quoted Title/, 'should parse single-quoted title')
+    assert.match(html, /Header with Single Quotes/, 'should parse single-quoted header')
+    assert.match(html, /Content with single quotes/, 'should have content')
   })
 
-  t.test('should handle malformed front matter gracefully', async (t) => {
+  test('should handle malformed front matter gracefully', async () => {
     // Create template with malformed front matter
     const malformedPath = path.join(testDir, 'de', 'test-malformed.mjml')
     fs.writeFileSync(malformedPath, `<!-- @meta
@@ -220,6 +243,6 @@ another: invalid: line
     const html = app.compileHtmlBody('test-malformed', {}, 'de')
     
     // Should still compile successfully, ignoring invalid lines
-    t.match(html, /Content with malformed meta/, 'should compile despite malformed front matter')
+    assert.match(html, /Content with malformed meta/, 'should compile despite malformed front matter')
   })
 })
