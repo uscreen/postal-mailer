@@ -205,14 +205,14 @@ All options can be managed via `.env` file and/or inline configuration as seen a
 Send a `template` rendered with `data` `to` a recepient with a `subject`.
 (In an optional language set by `locale`)
 
-## Roadmap
-
-- use esm (or shim with https://github.com/standard-things/esm)
-- upgrades:
-    ◯ globby        latest  11.0.4  ❯  12.0.2  https://github.com/sindresorhus/globby#readme
-- deplrecate postalAssetsUrl as this is implementation context
-
 ## Changelog
+
+### 1.1.0
+
+- changed test runner from tab to node
+- changed CommonJS to ESM
+- upgraded all dependencies to latest versions
+- removed deep-equal in favor of node:assert
 
 ### 1.0.0
 

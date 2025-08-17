@@ -1,4 +1,4 @@
-import equal from 'deep-equal'
+import assert from 'node:assert'
 
 const defaults = () => ({
   to: ['foo@domain.com'],
@@ -26,7 +26,12 @@ const intercept =
       }
     })
 
-    return equal(body, data) && customInterceptor({ ...body, ...retained })
+    try {
+      assert.deepStrictEqual(body, data)
+      return customInterceptor({ ...body, ...retained })
+    } catch {
+      return false
+    }
   }
 
 export {
