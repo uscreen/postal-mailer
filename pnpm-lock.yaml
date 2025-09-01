@@ -34,7 +34,7 @@ importers:
         version: 4.15.3(relateurl@0.2.7)
       nodemailer:
         specifier: ^7.0.5
-        version: 7.0.5
+        version: 7.0.6
     devDependencies:
       '@uscreen.de/dev-service':
         specifier: ^0.12.12
@@ -1382,8 +1382,8 @@ packages:
       encoding:
         optional: true
 
-  nodemailer@7.0.5:
-    resolution: {integrity: sha512-nsrh2lO3j4GkLLXoeEksAMgAOqxOv6QumNRVQTJwKH4nuiww6iC2y7GyANs9kRAxCexg3+lTWM3PZ91iLlVjfg==}
+  nodemailer@7.0.6:
+    resolution: {integrity: sha512-F44uVzgwo49xboqbFgBGkRaiMgtoBrBEWCVincJPK9+S9Adkzt/wXCLKbf7dxucmxfTI5gHGB+bEmdyzN6QKjw==}
     engines: {node: '>=6.0.0'}
 
   nopt@7.2.1:
@@ -3876,7 +3876,7 @@ snapshots:
     dependencies:
       whatwg-url: 5.0.0
 
-  nodemailer@7.0.5: {}
+  nodemailer@7.0.6: {}
 
   nopt@7.2.1:
     dependencies:
