@@ -18,20 +18,20 @@
   },
   "dependencies": {
     "@atech/postal": "^1.0.0",
-    "env-schema": "^6.0.1",
+    "env-schema": "^6.1.0",
     "globby": "^11.1.0",
     "gray-matter": "^4.0.3",
     "handlebars": "^4.7.8",
     "html-to-text": "^9.0.5",
-    "mjml": "^4.15.3",
-    "nodemailer": "^7.0.5"
+    "mjml": "^4.17.1",
+    "nodemailer": "^7.0.10"
   },
   "devDependencies": {
     "@uscreen.de/dev-service": "^0.12.12",
     "@uscreen.de/eslint-config-prettystandard-node": "^0.2.12",
     "deep-equal": "^2.2.3",
     "mailhog": "^4.16.0",
-    "nock": "^14.0.6",
+    "nock": "^14.0.10",
     "tap": "^16.3.10"
   },
   "services": [
