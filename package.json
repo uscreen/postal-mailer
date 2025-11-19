@@ -27,8 +27,8 @@
     "gray-matter": "^4.0.3",
     "handlebars": "^4.7.8",
     "html-to-text": "^9.0.5",
-    "mjml": "^4.15.3",
-    "nodemailer": "^7.0.5"
+    "mjml": "^4.17.1",
+    "nodemailer": "^7.0.10"
   },
   "devDependencies": {
     "@uscreen.de/dev-service": "^0.13.0",
