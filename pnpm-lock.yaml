@@ -38,7 +38,7 @@ importers:
     devDependencies:
       '@uscreen.de/dev-service':
         specifier: ^0.13.0
-        version: 0.13.0
+        version: 0.13.1
       '@uscreen.de/eslint-config-prettystandard-node':
         specifier: ^0.3.0
         version: 0.3.0
@@ -176,8 +176,8 @@ packages:
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
 
-  '@uscreen.de/dev-service@0.13.0':
-    resolution: {integrity: sha512-3yh1I4oz8KlTSj0dRV0D3eYcQCo3oPrNVQ7smkHgxAVKafD8qLEeBGJV1LTzjEaJJVKUMowJZp30pk2YPg/JkA==}
+  '@uscreen.de/dev-service@0.13.1':
+    resolution: {integrity: sha512-IpA2d+NDYtcouKG8Qo9pZNff9FWxR1D+sG0LGUw3tEn6XotzMfSPfuL+Ozpk9PkecpKxKBonYSXf+r2bT4l+9g==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -883,9 +883,9 @@ packages:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
 
-  hosted-git-info@7.0.2:
-    resolution: {integrity: sha512-puUZAUKT5m8Zzvs72XWy3HtvVbTWljRE66cP60bxJzAqf2DgICo7lYTY2IHUmLnNpjYvw5bvmoHvPc0QO2a62w==}
-    engines: {node: ^16.14.0 || >=18.0.0}
+  hosted-git-info@9.0.2:
+    resolution: {integrity: sha512-M422h7o/BR3rmCQ8UHi7cyyMqKltdP9Uo+J2fXK+RSAY+wTcKOIRyhTuKv4qn+DJf3g+PL890AzId5KZpX+CBg==}
+    engines: {node: ^20.17.0 || >=22.9.0}
 
   html-escaper@2.0.2:
     resolution: {integrity: sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==}
@@ -1206,6 +1206,10 @@ packages:
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
+  lru-cache@11.2.2:
+    resolution: {integrity: sha512-F9ODfyqML2coTIsQpSkRHnLSZMtkU8Q+mSfcaIyKwy58u+8k5nvAYeiNhsyMARvzNcXJ9QfWVrcPsC9e9rAxtg==}
+    engines: {node: 20 || >=22}
+
   make-dir@4.0.0:
     resolution: {integrity: sha512-hXdUTZYIVOt1Ex//jAQi+wTZZpUpwBj/0QsOzqegb3rGMMeJiSEu5xLHnYfBrRV4RH2+OCSOO95Is/7x1WJ4bw==}
     engines: {node: '>=10'}
@@ -1383,9 +1387,9 @@ packages:
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
     hasBin: true
 
-  normalize-package-data@6.0.2:
-    resolution: {integrity: sha512-V6gygoYb/5EmNI+MEGrWkC+e6+Rr7mTmfHrxDbLzxQogBkgzo76rkok0Am6thgSF7Mv2nLOajAJj5vDJZEFn7g==}
-    engines: {node: ^16.14.0 || >=18.0.0}
+  normalize-package-data@8.0.0:
+    resolution: {integrity: sha512-RWk+PI433eESQ7ounYxIp67CYuVsS1uYSonX3kA6ps/3LWfjVQa/ptEg6Y3T6uAMq1mWpX9PQ+qx+QaHpsc7gQ==}
+    engines: {node: ^20.17.0 || >=22.9.0}
 
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
@@ -1542,9 +1546,9 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
-  read-pkg@9.0.1:
-    resolution: {integrity: sha512-9viLL4/n1BJUCT1NXVTdS1jtm80yDEgR5T4yCelII49Mbj0v1rZdKqj7zCiYdbB0CuCgdrvHcNogAKTFPBocFA==}
-    engines: {node: '>=18'}
+  read-pkg@10.0.0:
+    resolution: {integrity: sha512-A70UlgfNdKI5NSvTTfHzLQj7NJRpJ4mT5tGafkllJ4wh71oYuGm/pzphHcmW4s35iox56KSK721AihodoXSc/A==}
+    engines: {node: '>=20'}
 
   readable-stream@2.3.8:
     resolution: {integrity: sha512-8p0AUk4XODgIewSi0l8Epjs+EVnWiK7NoDIEGU0HhE7+ZyY8D1IMY7odu5lRrFXGg71L15KG8QrPmum45RTtdA==}
@@ -1756,6 +1760,10 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
+  tagged-tag@1.0.0:
+    resolution: {integrity: sha512-yEFYrVhod+hdNyx7g5Bnkkb0G6si8HJurOoOEgC8B/O0uXLHlaey/65KRv6cuWBNhBgHKAROVpc7QyYqE5gFng==}
+    engines: {node: '>=20'}
+
   test-exclude@7.0.1:
     resolution: {integrity: sha512-pFYqmTw68LXVjeWJMST4+borgQP2AyMNbg1BpZh9LbyhUeNkeaPF9gzfPGUAnSMV3qPYdWUwDIjjCLiSDOl7vg==}
     engines: {node: '>=18'}
@@ -1785,6 +1793,10 @@ packages:
     resolution: {integrity: sha512-TeTSQ6H5YHvpqVwBRcnLDCBnDOHWYu7IvGbHT6N8AOymcr9PJGjc1GTtiWZTYg0NCgYwvnYWEkVChQAr9bjfwA==}
     engines: {node: '>=16'}
 
+  type-fest@5.2.0:
+    resolution: {integrity: sha512-xxCJm+Bckc6kQBknN7i9fnP/xobQRsRQxR01CztFkp/h++yfVxUUcmMgfR2HttJx/dpWjS9ubVuyspJv24Q9DA==}
+    engines: {node: '>=20'}
+
   typed-array-buffer@1.0.3:
     resolution: {integrity: sha512-nAYYwfY3qnzX30IkA6AQZjVbtK6duGontcQm1WSG1MD94YLqK0515GNApXkoxKOWMusVssAHWLh9SeaoefYFGw==}
     engines: {node: '>= 0.4'}
@@ -1813,8 +1825,8 @@ packages:
     resolution: {integrity: sha512-nWJ91DjeOkej/TA8pXQ3myruKpKEYgqvpw9lz4OPHj/NWFNluYrjbz9j01CJ8yKQd2g4jFoOkINCTW2I5LEEyw==}
     engines: {node: '>= 0.4'}
 
-  unicorn-magic@0.1.0:
-    resolution: {integrity: sha512-lRfVq8fE8gz6QMBuDM6a+LO3IAzTi05H6gCVaUpir2E1Rwpo4ZUog45KpNXKC/Mn3Yb9UDuHumeFTo9iV/D9FQ==}
+  unicorn-magic@0.3.0:
+    resolution: {integrity: sha512-+QBBXBCvifc56fsbuxZQ6Sic3wqqc3WWaqxs58gvJrcOuN83HGTCwz3oS5phzU9LthRNE9VrJCFCLUgHeeFnfA==}
     engines: {node: '>=18'}
 
   unicorn-magic@0.4.0:
@@ -2040,14 +2052,14 @@ snapshots:
 
   '@ungap/structured-clone@1.3.0': {}
 
-  '@uscreen.de/dev-service@0.13.0':
+  '@uscreen.de/dev-service@0.13.1':
     dependencies:
       chalk: 5.6.2
       commander: 14.0.2
       fs-extra: 11.3.2
       nanoid: 5.1.6
       parse-json: 8.3.0
-      read-pkg: 9.0.1
+      read-pkg: 10.0.0
       yaml: 2.8.1
 
   '@uscreen.de/eslint-config-prettystandard-node@0.3.0':
@@ -2928,9 +2940,9 @@ snapshots:
     dependencies:
       function-bind: 1.1.2
 
-  hosted-git-info@7.0.2:
+  hosted-git-info@9.0.2:
     dependencies:
-      lru-cache: 10.4.3
+      lru-cache: 11.2.2
 
   html-escaper@2.0.2: {}
 
@@ -3240,6 +3252,8 @@ snapshots:
   lodash@4.17.21: {}
 
   lru-cache@10.4.3: {}
+
+  lru-cache@11.2.2: {}
 
   make-dir@4.0.0:
     dependencies:
@@ -3865,9 +3879,9 @@ snapshots:
     dependencies:
       abbrev: 2.0.0
 
-  normalize-package-data@6.0.2:
+  normalize-package-data@8.0.0:
     dependencies:
-      hosted-git-info: 7.0.2
+      hosted-git-info: 9.0.2
       semver: 7.7.3
       validate-npm-package-license: 3.0.4
 
@@ -4028,13 +4042,13 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  read-pkg@9.0.1:
+  read-pkg@10.0.0:
     dependencies:
       '@types/normalize-package-data': 2.4.4
-      normalize-package-data: 6.0.2
+      normalize-package-data: 8.0.0
       parse-json: 8.3.0
-      type-fest: 4.41.0
-      unicorn-magic: 0.1.0
+      type-fest: 5.2.0
+      unicorn-magic: 0.3.0
 
   readable-stream@2.3.8:
     dependencies:
@@ -4279,6 +4293,8 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
+  tagged-tag@1.0.0: {}
+
   test-exclude@7.0.1:
     dependencies:
       '@istanbuljs/schema': 0.1.3
@@ -4307,6 +4323,10 @@ snapshots:
   type-fest@0.20.2: {}
 
   type-fest@4.41.0: {}
+
+  type-fest@5.2.0:
+    dependencies:
+      tagged-tag: 1.0.0
 
   typed-array-buffer@1.0.3:
     dependencies:
@@ -4353,7 +4373,7 @@ snapshots:
       has-symbols: 1.1.0
       which-boxed-primitive: 1.1.1
 
-  unicorn-magic@0.1.0: {}
+  unicorn-magic@0.3.0: {}
 
   unicorn-magic@0.4.0: {}
 
