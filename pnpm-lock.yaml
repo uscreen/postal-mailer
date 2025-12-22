@@ -34,7 +34,7 @@ importers:
         version: 4.18.0(relateurl@0.2.7)
       nodemailer:
         specifier: ^7.0.10
-        version: 7.0.11
+        version: 7.0.12
     devDependencies:
       '@uscreen.de/dev-service':
         specifier: ^0.13.0
@@ -894,8 +894,9 @@ packages:
     resolution: {integrity: sha512-qY60FjREgVZL03vJU6IfMV4GDjGBIoOyvuFdpBDIX9yTlDw0TjxVBQp+P8NvpdIXNJvfWBTNul7fsAQJq2FNpg==}
     engines: {node: '>=14'}
 
-  htmlnano@2.1.5:
-    resolution: {integrity: sha512-IXffzXq1beGQN2rsr03aIPK/rVU1jR2uwHymlAIEf97Tl5WdpG50IsQ5nWGvSGQJ+x6U7S6yac9rRiFgAg4/xQ==}
+  htmlnano@3.0.0:
+    resolution: {integrity: sha512-DCLN93CIG5r41Sv/rWk1u6XJ89oOtpHK2OzeXL8Aqa8719HWEPpggxRdDbceQQWrZTRIsh/5pF8Rrv1JKq0lpg==}
+    hasBin: true
     peerDependencies:
       cssnano: ^7.0.0
       postcss: ^8.3.11
@@ -1378,8 +1379,8 @@ packages:
       encoding:
         optional: true
 
-  nodemailer@7.0.11:
-    resolution: {integrity: sha512-gnXhNRE0FNhD7wPSCGhdNh46Hs6nm+uTyg+Kq0cZukNQiYdnCsoQjodNP9BQVG9XrcK/v6/MgpAPBUFyzh9pvw==}
+  nodemailer@7.0.12:
+    resolution: {integrity: sha512-H+rnK5bX2Pi/6ms3sN4/jRQvYSMltV6vqup/0SFOrxYYY/qoNvhXPlYq3e+Pm9RFJRwrMGbMIwi81M4dxpomhA==}
     engines: {node: '>=6.0.0'}
 
   nopt@7.2.1:
@@ -2954,9 +2955,10 @@ snapshots:
       htmlparser2: 8.0.2
       selderee: 0.11.0
 
-  htmlnano@2.1.5(relateurl@0.2.7):
+  htmlnano@3.0.0(relateurl@0.2.7):
     dependencies:
       '@types/relateurl': 0.2.33
+      commander: 14.0.2
       cosmiconfig: 9.0.0
       posthtml: 0.16.7
     optionalDependencies:
@@ -3361,7 +3363,7 @@ snapshots:
       '@babel/runtime': 7.28.4
       chokidar: 3.6.0
       glob: 10.5.0
-      html-minifier: htmlnano@2.1.5(relateurl@0.2.7)
+      html-minifier: htmlnano@3.0.0(relateurl@0.2.7)
       js-beautify: 1.15.4
       lodash: 4.17.21
       minimatch: 9.0.5
@@ -3404,7 +3406,7 @@ snapshots:
       '@babel/runtime': 7.28.4
       cheerio: 1.0.0-rc.12
       detect-node: 2.1.0
-      html-minifier: htmlnano@2.1.5(relateurl@0.2.7)
+      html-minifier: htmlnano@3.0.0(relateurl@0.2.7)
       js-beautify: 1.15.4
       juice: 10.0.1
       lodash: 4.17.21
@@ -3873,7 +3875,7 @@ snapshots:
     dependencies:
       whatwg-url: 5.0.0
 
-  nodemailer@7.0.11: {}
+  nodemailer@7.0.12: {}
 
   nopt@7.2.1:
     dependencies:
