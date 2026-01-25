@@ -173,4 +173,56 @@ describe('sendmail: postal', () => {
       'should fail on invalid attachment data'
     )
   })
+
+  test('should compile subject from template frontmatter with Handlebars', async () => {
+    const mock = postalMock(app, 200, {
+      subject: 'John Doe invited you to "Team Meeting"'
+    })
+
+    const payload = {
+      template: 'test-with-subject',
+      data: {
+        userName: 'John Doe',
+        eventTitle: 'Team Meeting'
+      },
+      to: 'foo@domain.com',
+      locale: 'de'
+    }
+
+    await app.sendMail(payload)
+    assert.ok(mock.isDone(), 'should send message with compiled subject to postal')
+  })
+
+  test('should use provided subject when template has no frontmatter subject', async () => {
+    const mock = postalMock(app, 200, {
+      subject: 'Custom Subject'
+    })
+
+    const payload = defaultPayload()
+    payload.subject = 'Custom Subject'
+
+    await app.sendMail(payload)
+    assert.ok(mock.isDone(), 'should send message with provided subject to postal')
+  })
+
+  test('should not require subject parameter when template has frontmatter subject', async () => {
+    const mock = postalMock(app, 200, {
+      subject: 'Jane Smith invited you to "Product Launch"'
+    })
+
+    const payload = {
+      template: 'test-with-subject',
+      data: {
+        userName: 'Jane Smith',
+        eventTitle: 'Product Launch'
+      },
+      to: 'foo@domain.com',
+      locale: 'de'
+    }
+    // Note: no subject parameter provided
+
+    const answer = await app.sendMail(payload)
+    assert.ok(mock.isDone(), 'should send message without subject parameter')
+    assert.ok(answer, 'should have an answer')
+  })
 })
