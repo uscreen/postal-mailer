@@ -28,7 +28,7 @@
     "handlebars": "^4.7.8",
     "html-to-text": "^9.0.5",
     "mjml": "^4.17.1",
-    "nodemailer": "^7.0.10"
+    "nodemailer": "^8.0.1"
   },
   "devDependencies": {
     "@uscreen.de/dev-service": "^0.13.0",
