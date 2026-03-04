@@ -18,10 +18,11 @@
     ".": "./index.js"
   },
   "scripts": {
-    "lint": "eslint --fix",
     "test": "node --test test/*.test.js",
     "test:cov": "c8 --reporter=html --reporter=text node --test test/*.test.js",
-    "test:ci": "c8 --reporter=lcov --reporter=text node --test test/*.test.js"
+    "test:ci": "c8 --reporter=lcov --reporter=text node --test test/*.test.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@atech/postal": "^1.0.0",
@@ -34,9 +35,11 @@
     "nodemailer": "^8.0.1"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^7.6.1",
     "@uscreen.de/dev-service": "^0.13.0",
-    "@uscreen.de/eslint-config-prettystandard-node": "^0.3.0",
     "c8": "^11.0.0",
+    "eslint": "^9.39.3",
+    "eslint-plugin-format": "^1.5.0",
     "nock": "^14.0.10"
   },
   "services": [
