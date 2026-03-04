@@ -1,5 +1,5 @@
-import { test, beforeEach, describe } from 'node:test'
 import assert from 'node:assert'
+import { beforeEach, describe, test } from 'node:test'
 import { build } from './helper.js'
 
 const defaultPayload = () => ({
@@ -12,7 +12,7 @@ const defaultPayload = () => ({
   locale: 'de'
 })
 
-const mailpitClient = (host) => ({
+const mailpitClient = host => ({
   async messages() {
     try {
       const response = await fetch(`http://${host}:8025/api/v1/messages`)
@@ -20,12 +20,12 @@ const mailpitClient = (host) => ({
         throw new Error(`Failed to fetch messages: ${response.statusText}`)
       }
       const data = await response.json()
-      
+
       if (!data.messages || !Array.isArray(data.messages)) {
         console.error('Unexpected response structure:', data)
         throw new Error('Invalid response structure from Mailpit API')
       }
-      
+
       const items = await Promise.all(
         data.messages.map(async (msg) => {
           const msgResponse = await fetch(`http://${host}:8025/api/v1/message/${msg.ID}`)
@@ -33,17 +33,17 @@ const mailpitClient = (host) => ({
             throw new Error(`Failed to fetch message ${msg.ID}: ${msgResponse.statusText}`)
           }
           const fullMsg = await msgResponse.json()
-          
+
           // Get raw message content for attachment verification
           const rawResponse = await fetch(`http://${host}:8025/api/v1/message/${msg.ID}/raw`)
           const rawContent = rawResponse.ok ? await rawResponse.text() : ''
-          
+
           // Combine To and Bcc addresses for Raw.To (MailHog compatibility)
           const allRecipients = [
             ...(fullMsg.To?.map(t => t.Address) || []),
             ...(fullMsg.Bcc?.map(b => b.Address) || [])
           ]
-          
+
           return {
             from: fullMsg.From?.Address || '',
             to: fullMsg.To?.[0]?.Address || '',
@@ -60,12 +60,13 @@ const mailpitClient = (host) => ({
           }
         })
       )
-      
+
       return {
         total: data.messages_count || 0,
         items
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error in mailpitClient.messages():', error)
       throw error
     }
@@ -81,7 +82,8 @@ const mailpitClient = (host) => ({
       if (!response.ok) {
         throw new Error(`Failed to delete messages: ${response.statusText}`)
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error in mailpitClient.deleteAll():', error)
       throw error
     }
@@ -228,7 +230,7 @@ describe('sendmail: smtp', () => {
       delete payload[prop]
       await assert.rejects(
         () => app.sendMail(payload),
-        (error) => error && error.code === 'ERR_ASSERTION' && error.operator === '==',
+        error => error && error.code === 'ERR_ASSERTION' && error.operator === '==',
         `should fail on missing property ${prop}`
       )
     }
@@ -241,7 +243,7 @@ describe('sendmail: smtp', () => {
     ]
     await assert.rejects(
       () => app.sendMail(payload),
-      (error) => error && error.code === 'ERR_ASSERTION' && error.operator === '==',
+      error => error && error.code === 'ERR_ASSERTION' && error.operator === '==',
       'should fail on invalid attachment data'
     )
   })
@@ -253,7 +255,7 @@ describe('sendmail: smtp', () => {
     ]
     await assert.rejects(
       () => app.sendMail(payload),
-      (error) => error && error.code === 'ERR_ASSERTION' && error.operator === '==',
+      error => error && error.code === 'ERR_ASSERTION' && error.operator === '==',
       'should fail on invalid attachment data'
     )
   })

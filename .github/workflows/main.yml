@@ -5,9 +5,9 @@ name: Test CI
 
 on:
   push:
-    branches: ["master", "main"]
+    branches: [master, main]
   pull_request:
-    branches: ["master", "main"]
+    branches: [master, main]
 
 jobs:
   test:
@@ -26,7 +26,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
+          cache: pnpm
 
       - name: Install packages
         run: pnpm install
@@ -37,7 +37,7 @@ jobs:
       - name: Run tests
         run: pnpm run test:ci
         env:
-          NODE_OPTIONS: '--dns-result-order=ipv4first'
+          NODE_OPTIONS: --dns-result-order=ipv4first
 
       - name: Stop Mailpit
         run: docker stop mailpit
@@ -49,8 +49,8 @@ jobs:
 
   automerge:
     if: >
-        github.event_name == 'pull_request' &&
-        github.event.pull_request.user.login == 'dependabot[bot]'
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.user.login == 'dependabot[bot]'
     needs: test
     runs-on: ubuntu-latest
     permissions:

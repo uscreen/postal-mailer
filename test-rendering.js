@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-const fs = require('fs')
-const path = require('path')
+const fs = require('node:fs')
+const path = require('node:path')
 const postalMailer = require('./index')
 
 // Create output directory
@@ -67,13 +67,13 @@ const tests = [
 ]
 
 // Run tests
-tests.forEach(test => {
+tests.forEach((test) => {
   try {
     console.log(`📧 Rendering: ${test.name}`)
-    
+
     const html = mailer.compileHtmlBody(test.template, testData, test.locale)
     const outputPath = path.join(outputDir, test.output)
-    
+
     // Wrap in a simple HTML viewer with side-by-side comparison capability
     const fullHtml = `<!DOCTYPE html>
 <html>
@@ -125,11 +125,11 @@ tests.forEach(test => {
     </div>
 </body>
 </html>`
-    
+
     fs.writeFileSync(outputPath, fullHtml)
     console.log(`   ✅ Saved to: ${outputPath}`)
-    
-  } catch (error) {
+  }
+  catch (error) {
     console.error(`   ❌ Error: ${error.message}`)
   }
 })
@@ -221,7 +221,7 @@ fs.writeFileSync(comparisonPath, comparisonHtml)
 console.log('\n🎉 All templates rendered successfully!')
 console.log('\n📂 Output files:')
 console.log(`   ${outputDir}/`)
-tests.forEach(test => {
+tests.forEach((test) => {
   console.log(`   ├── ${test.output}`)
 })
 console.log(`   └── comparison.html`)

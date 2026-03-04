@@ -9,10 +9,10 @@
 
 ## Features
 
-* configure inline (json object) or by dotenv
-* uses handlebars + mjml for compilation and render
-* sends mails via postal api or smtp
-* supports layout inheritance to reduce template duplication
+- configure inline (json object) or by dotenv
+- uses handlebars + mjml for compilation and render
+- sends mails via postal api or smtp
+- supports layout inheritance to reduce template duplication
 
 ## Install
 
@@ -20,7 +20,7 @@
 $ yarn add @uscreen.de/postal-mailer # or use npm -i
 ```
 
-## Example 
+## Example
 
 ```js
 const mailer = require('@uscreen.de/postal-mailer')({
@@ -38,10 +38,10 @@ const result = await mailer
     to: 'rcpt@example.com',
     subject: 'Example Test Mail'
   })
-  .then(r => {
+  .then((r) => {
     console.log('RESULT:', r)
   })
-  .catch(e => {
+  .catch((e) => {
     console.error('ERROR sending mail:', e)
   })
 ```
@@ -55,31 +55,28 @@ Please refer to https://mjml.io and https://handlebarsjs.com. Start with example
   <mj-head>
     <mj-title>Test Mail</mj-title>
     <mj-attributes>
-      <mj-all font-family="BlinkMacSystemFont, -apple-system, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;"></mj-all>
+      <mj-all
+        font-family="BlinkMacSystemFont, -apple-system, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;"
+      ></mj-all>
       <mj-text font-weight="300" font-size="16px" color="#000000" line-height="24px"></mj-text>
     </mj-attributes>
   </mj-head>
 
   <mj-body background-color="#F2F2F2">
-
     <mj-section background-color="#ff781e" padding="20px">
       <mj-column width="100%">
-        <mj-text align="center" font-size="24px" color="#ffffff" font-weight="600">
-          A very simple Test E-Mail
-        </mj-text>
+        <mj-text align="center" font-size="24px" color="#ffffff" font-weight="600"> A very simple Test E-Mail </mj-text>
       </mj-column>
     </mj-section>
 
     <mj-section background-color="#FFFFFF" padding="40px 20px">
       <mj-column width="100%">
         <mj-text>
-          Greetings {{user.firstName}} {{user.lastName}},<br>
-          <br>
+          Greetings {{user.firstName}} {{user.lastName}},<br />
+          <br />
           this is a simple example on how to setup a template and pass in some data.
         </mj-text>
-        <mj-text>
-          template will prefix all asset urls (ie. imgages) with<br>"{{postalAssetsUrl}}"
-        </mj-text>
+        <mj-text> template will prefix all asset urls (ie. imgages) with<br />"{{postalAssetsUrl}}" </mj-text>
       </mj-column>
     </mj-section>
 
@@ -88,13 +85,13 @@ Please refer to https://mjml.io and https://handlebarsjs.com. Start with example
         <mj-text align="center" color="#9B9B9B" font-size="11px">ACME Inc, Street. 1, 12345 City</mj-text>
       </mj-column>
     </mj-section>
-
   </mj-body>
 </mjml>
 ```
+
 which renders to something like this:
 
-![](demomail.png)
+![Demo email rendered output](demomail.png)
 
 ### Layout System
 
@@ -113,10 +110,7 @@ Create a layout file in a `layouts` subdirectory within your template locale fol
     <mj-attributes>
       <mj-all font-family="Arial, sans-serif" />
     </mj-attributes>
-    <mj-style>
-      /* Common styles */
-      {{#if customStyles}}{{{customStyles}}}{{/if}}
-    </mj-style>
+    <mj-style> /* Common styles */ {{#if customStyles}}{{{customStyles}}}{{/if}} </mj-style>
   </mj-head>
   <mj-body>
     <!-- Common header -->
@@ -125,10 +119,10 @@ Create a layout file in a `layouts` subdirectory within your template locale fol
         <mj-text>{{companyName}}</mj-text>
       </mj-column>
     </mj-section>
-    
+
     <!-- Main content -->
     {{{content}}}
-    
+
     <!-- Common footer -->
     {{#unless hideFooter}}
     <mj-section>
@@ -160,12 +154,8 @@ preview: "Get started with your new account"
 <!-- @content -->
 <mj-section>
   <mj-column>
-    <mj-text>
-      Welcome {{user.firstName}}!
-    </mj-text>
-    <mj-text css-class="highlight">
-      Your account is ready to use.
-    </mj-text>
+    <mj-text> Welcome {{user.firstName}}! </mj-text>
+    <mj-text css-class="highlight"> Your account is ready to use. </mj-text>
   </mj-column>
 </mj-section>
 <!-- @endcontent -->
@@ -186,21 +176,21 @@ All template data passed to `sendMail()` is also available in the layout.
 All options can be managed via `.env` file and/or inline configuration as seen above. Overview of options:
 
 | option                  | Description                                                                                                 | Default           | Example                             |
-|-------------------------|-------------------------------------------------------------------------------------------------------------|-------------------|-------------------------------------|
-| __useDotenv__           | whether to also read options from `.env` files                                                              | `false`           | `true`                              |
-| __postalTransport__     | Send mail via Postal API or SMTP                                                                            | `postal`          | `smtp`                              |
-| __postalServer__        | Postal Server Host                                                                                          |                   | postal.example.com                  |
-| __postalPort__          | If sending via SMTP, the SMTP port                                                                          | 25                | 25                                  |
-| __postalUser__          | If sending via SMTP, the SMTP username                                                                      |                   | acme/my-api                         |
-| __postalKey__           | If sending via Postal API, the API Key to use. If sending via SMTP, the SMTP password                       |                   | ExAmPlE_key                         |
-| __postalSender__        | From Address in emails                                                                                      |                   | noreply@example.com                 |
-| __postalTemplates__     | path to directory containing email templates                                                                | `<cwd>/templates` | ./templates/mails                   |
-| __postalAssetsUrl__     | url to prefix assets                                                                                        | `''`              | https://www.example.com/mail/assets |
-| __postalDefaultLocale__ | when set, locales will default to 'en' and templates will default `./templates/en` instead of `./templates` | `''`              | 'en'                                |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------- | ----------------------------------- |
+| **useDotenv**           | whether to also read options from `.env` files                                                              | `false`           | `true`                              |
+| **postalTransport**     | Send mail via Postal API or SMTP                                                                            | `postal`          | `smtp`                              |
+| **postalServer**        | Postal Server Host                                                                                          |                   | postal.example.com                  |
+| **postalPort**          | If sending via SMTP, the SMTP port                                                                          | 25                | 25                                  |
+| **postalUser**          | If sending via SMTP, the SMTP username                                                                      |                   | acme/my-api                         |
+| **postalKey**           | If sending via Postal API, the API Key to use. If sending via SMTP, the SMTP password                       |                   | ExAmPlE_key                         |
+| **postalSender**        | From Address in emails                                                                                      |                   | noreply@example.com                 |
+| **postalTemplates**     | path to directory containing email templates                                                                | `<cwd>/templates` | ./templates/mails                   |
+| **postalAssetsUrl**     | url to prefix assets                                                                                        | `''`              | https://www.example.com/mail/assets |
+| **postalDefaultLocale** | when set, locales will default to 'en' and templates will default `./templates/en` instead of `./templates` | `''`              | 'en'                                |
 
 ## API
 
-#### mailer.sendMail({ template, data, to, subject, locale = '' })
+### mailer.sendMail({ template, data, to, subject, locale = '' })
 
 Send a `template` rendered with `data` `to` a recepient with a `subject`.
 (In an optional language set by `locale`)
@@ -245,4 +235,3 @@ Send a `template` rendered with `data` `to` a recepient with a `subject`.
 ### 0.1.0
 
 - rendering of templates (to html + text) & sending thru api works
-

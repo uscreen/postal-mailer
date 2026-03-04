@@ -1,20 +1,20 @@
-import fs from 'node:fs'
-import path from 'node:path'
-import os from 'node:os'
-import { test, beforeEach, afterEach, describe } from 'node:test'
 import assert from 'node:assert'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
+import { afterEach, beforeEach, describe, test } from 'node:test'
 import { build } from './helper.js'
 
 // Create test templates with layout
 const createTestTemplates = () => {
   const testDir = fs.mkdtempSync(path.join(os.tmpdir(), 'layout-test-'))
-  
+
   // Create directory structure
   const deDir = path.join(testDir, 'de')
   const layoutsDir = path.join(deDir, 'layouts')
   fs.mkdirSync(deDir, { recursive: true })
   fs.mkdirSync(layoutsDir, { recursive: true })
-  
+
   // Create layout file
   fs.writeFileSync(path.join(layoutsDir, 'base.mjml'), `<mjml>
   <mj-head>
@@ -241,7 +241,7 @@ another: invalid: line
 </mj-section>`)
 
     const html = app.compileHtmlBody('test-malformed', {}, 'de')
-    
+
     // Should still compile successfully, ignoring invalid lines
     assert.match(html, /Content with malformed meta/, 'should compile despite malformed front matter')
   })

@@ -1,6 +1,6 @@
-import nock from 'nock'
-import { test, beforeEach, describe } from 'node:test'
 import assert from 'node:assert'
+import { beforeEach, describe, test } from 'node:test'
+import nock from 'nock'
 import { build } from './helper.js'
 import { intercept } from './interceptor.js'
 
@@ -105,7 +105,9 @@ describe('sendmail: postal', () => {
 
   test('should send with fallback locale', async () => {
     const mock = postalMock(app, 200, (body) => {
-      if (body.plain_body !== 'EN: bar' || !body.html_body.match(/EN: bar/)) { return false }
+      if (body.plain_body !== 'EN: bar' || !body.html_body.match(/EN: bar/)) {
+        return false
+      }
 
       return true
     })
@@ -117,7 +119,9 @@ describe('sendmail: postal', () => {
 
   test('should send with different locale', async () => {
     const mock = postalMock(app, 200, (body) => {
-      if (body.plain_body !== 'DE: bar' || !body.html_body.match(/DE: bar/)) { return false }
+      if (body.plain_body !== 'DE: bar' || !body.html_body.match(/DE: bar/)) {
+        return false
+      }
 
       return true
     })
@@ -134,7 +138,7 @@ describe('sendmail: postal', () => {
       delete payload[prop]
       await assert.rejects(
         () => app.sendMail(payload),
-        (error) => error && error.code === 'ERR_ASSERTION' && error.operator === '==',
+        error => error && error.code === 'ERR_ASSERTION' && error.operator === '==',
         `should fail on missing property ${prop}`
       )
     }
@@ -157,7 +161,7 @@ describe('sendmail: postal', () => {
     ]
     await assert.rejects(
       () => app.sendMail(payload),
-      (error) => error && error.code === 'ERR_ASSERTION' && error.operator === '==',
+      error => error && error.code === 'ERR_ASSERTION' && error.operator === '==',
       'should fail on invalid attachment data'
     )
   })
@@ -169,7 +173,7 @@ describe('sendmail: postal', () => {
     ]
     await assert.rejects(
       () => app.sendMail(payload),
-      (error) => error && error.code === 'ERR_ASSERTION' && error.operator === '==',
+      error => error && error.code === 'ERR_ASSERTION' && error.operator === '==',
       'should fail on invalid attachment data'
     )
   })
