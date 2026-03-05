@@ -28,20 +28,20 @@
   "dependencies": {
     "@atech/postal": "^1.0.0",
     "env-schema": "^7.0.0",
-    "globby": "^16.0.0",
+    "globby": "^16.1.1",
     "gray-matter": "^4.0.3",
     "handlebars": "^4.7.8",
     "html-to-text": "^9.0.5",
-    "mjml": "^4.17.1",
+    "mjml": "^4.18.0",
     "nodemailer": "^8.0.1"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^7.6.1",
-    "@uscreen.de/dev-service": "^0.13.0",
+    "@uscreen.de/dev-service": "^0.13.1",
     "c8": "^11.0.0",
     "eslint": "^9.39.3",
     "eslint-plugin-format": "^2.0.1",
-    "nock": "^14.0.10"
+    "nock": "^14.0.11"
   },
   "services": [
     {
