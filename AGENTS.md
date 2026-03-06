@@ -8,49 +8,44 @@ layout inheritance, i18n via locale-based template directories, and frontmatter 
 
 ## Build/Test Commands
 
-- **Install**: `pnpm install` (use pnpm, not npm — enforced via `packageManager` field)
-- **Lint**: `pnpm run lint` (ESLint with `--fix`)
+- **Install**: `pnpm install` (use pnpm, not npm -- enforced via `packageManager` field)
+- **Lint**: `pnpm run lint` (ESLint, no auto-fix)
+- **Lint + fix**: `pnpm run lint:fix` (ESLint with `--fix`)
 - **Test all**: `pnpm test` or `node --test test/*.test.js`
-- **Test single file**: `node --test test/api.test.js` (replace with specific test file)
+- **Test single file**: `node --test test/api.test.js`
 - **Test single case**: `node --test --test-name-pattern="pattern" test/api.test.js`
 - **Test with coverage**: `pnpm run test:cov` (HTML + text report via c8)
-- **Test CI**: `pnpm run test:ci` (LCOV + text report for Coveralls)
 
-### Important Notes
-
-- Node.js 20+ is required (for `node:test` runner features). CI tests against 20, 22, 24.
-- `.nvmrc` specifies Node 24. The project uses direnv (`.envrc`) for automatic version switching.
-- SMTP tests (`test/smtp.test.js`) require a running Mailpit instance on ports 1025/8025.
-  Start it via: `docker run -d -p 1025:1025 -p 8025:8025 axllent/mailpit:latest`
-- API tests (`test/api.test.js`) use nock to mock HTTP — no external services needed.
-- Layout tests (`test/layout.test.js`) use temp directories — no external services needed.
+Node.js 20+ required. `.nvmrc` specifies Node 24. CI tests against 20, 22, 24.
+SMTP tests (`test/smtp.test.js`) require a running Mailpit instance on ports 1025/8025.
+Start it via: `docker run -d -p 1025:1025 -p 8025:8025 axllent/mailpit:latest`
+API tests (`test/api.test.js`) use nock to mock HTTP -- no external services needed.
+Layout tests (`test/layout.test.js`) use temp directories -- no external services needed.
 
 ## Project Structure
 
 ```
-index.js                   # Package entry point, re-exports lib/index.js
+index.js           # Package entry point, re-exports lib/index.js
 lib/
-  index.js                 # Core factory: validates config, selects transport
-  config.js                # env-schema based configuration validation
-  utils.js                 # Template compilation (MJML, Handlebars, layouts)
-  postal.js                # Postal API transport (@atech/postal)
-  smtp.js                  # SMTP transport (nodemailer)
+  index.js         # Core factory: validates config, selects transport
+  config.js        # env-schema based configuration validation
+  utils.js         # Template compilation (MJML, Handlebars, layouts)
+  postal.js        # Postal API transport (@atech/postal)
+  smtp.js          # SMTP transport (nodemailer)
 test/
-  helper.js                # Test builder factory (build function)
-  interceptor.js           # Nock HTTP body-matching helper
-  noop.test.js             # Smoke test
-  api.test.js              # Postal API transport tests (uses nock)
-  smtp.test.js             # SMTP transport tests (requires Mailpit)
-  layout.test.js           # Layout inheritance tests (uses temp dirs)
-  templates/               # Test MJML templates organized by locale (en/, de/)
-examples/                  # Example usage for api and smtp transports
+  helper.js        # Test builder factory (build function)
+  interceptor.js   # Nock HTTP body-matching helper
+  api.test.js      # Postal API transport tests (uses nock)
+  smtp.test.js     # SMTP transport tests (requires Mailpit)
+  layout.test.js   # Layout inheritance tests (uses temp dirs)
+  templates/       # Test MJML templates organized by locale (en/, de/)
 ```
 
 ## Module System & Imports
 
 This is an **ESM-only** project (`"type": "module"` in package.json).
 
-### Import ordering convention (observed pattern)
+### Import ordering convention
 
 1. Node.js built-ins with `node:` protocol prefix
 2. Third-party packages (bare specifiers)
@@ -61,7 +56,6 @@ import assert from 'node:assert'           // 1. Node built-ins
 import { test, describe } from 'node:test'
 import nock from 'nock'                     // 2. Third-party
 import app from '../index.js'              // 3. Relative (always .js ext)
-import { build } from './helper.js'
 ```
 
 ### Export patterns
@@ -71,25 +65,20 @@ import { build } from './helper.js'
 
 ## Code Style & Formatting
 
-### Prettier rules (`.prettierrc`)
-
-- No semicolons, single quotes, no trailing commas, bracket spacing enabled
-
-### ESLint
-
-Uses `@uscreen.de/eslint-config-prettystandard-node` (extends StandardJS + Prettier).
+Uses `@antfu/eslint-config` (flat config in `eslint.config.js`) with formatters enabled.
+Key rules: `comma-dangle: never`, `curly: multi-line, consistent`, `no-console: off`.
+Prettier: no semicolons, single quotes, no trailing commas, bracket spacing enabled.
 
 ### Naming Conventions
 
-- **Files**: kebab-case (`test-with-subject.mjml`, `html-to-text`)
-- **Variables/functions**: camelCase (`compileHtmlBody`, `sendMail`, `postalDefaults`)
-- **Config properties**: camelCase (`postalServer`, `postalKey`, `postalTransport`)
+- **Files**: kebab-case (`test-with-subject.mjml`)
+- **Variables/functions/config**: camelCase (`compileHtmlBody`, `postalServer`)
 - **Internal markers**: double-underscore prefix (`__pmtransport`)
-- **No UPPER_SNAKE_CASE** constants — everything is camelCase
+- **No UPPER_SNAKE_CASE** constants -- everything is camelCase
 
 ### Brace Style
 
-Stroustrup style — `else` on a new line after the closing brace:
+Stroustrup style -- `else` on a new line after the closing brace:
 
 ```js
 if (contentMatch) {
@@ -110,25 +99,25 @@ select transport (`postal.js` or `smtp.js`) -> return `{ client, sendMail, compi
 
 ## Error Handling
 
-### In library code — use `assert` for input validation
+**Input validation** -- use `assert` in library code:
 
 ```js
 assert(template, 'providing a value for template is required')
 assert(typeof template === 'string', 'template should be a string')
 ```
 
-### In library code — try/catch with graceful fallback for I/O
+**I/O operations** -- try/catch with graceful fallback (note: bare `catch {`, no param):
 
 ```js
 try {
   layoutContent = fs.readFileSync(layoutPath, { encoding: 'utf8' })
-} catch (error) {
+} catch {
   console.error(`Layout not found: ${layoutName}`)
   return `<mjml><mj-body>${content}</mj-body></mjml>`
 }
 ```
 
-### In tests — use `assert.rejects()` with predicate functions
+**Tests** -- use `assert.rejects()` with predicate functions:
 
 ```js
 await assert.rejects(
@@ -148,12 +137,8 @@ await assert.rejects(
   `assert.doesNotMatch()`, `assert.rejects()`, `assert.deepStrictEqual()`
 - HTTP mocking: `nock` with custom interceptor (`test/interceptor.js`)
 - Test builder: `build()` factory from `test/helper.js` creates configured app instances
-
-### SMTP testing with Mailpit
-
-- Docker: `axllent/mailpit:latest` on ports 1025 (SMTP) / 8025 (Web UI)
-- API: `http://localhost:8025/api/v1/` — custom `mailpitClient()` uses built-in `fetch()`
-- Cleanup: `DELETE /api/v1/messages` between tests
+- SMTP tests need Mailpit (`axllent/mailpit:latest`) on ports 1025/8025
+- Mailpit cleanup: `DELETE /api/v1/messages` between tests via custom `mailpitClient()`
 
 ## Template System
 
@@ -166,18 +151,14 @@ await assert.rejects(
 
 ## Configuration
 
-Uses `env-schema` (Fastify ecosystem) with JSON Schema validation. Required properties:
-`postalTemplates` (string, default `./templates`), `postalServer` (string),
-`postalKey` (string). Optional: `postalTransport` (enum: postal/smtp, default `postal`),
-`postalPort` (number, default 25), `postalUser`, `postalSender`, `postalAssetsUrl`,
-`postalDefaultLocale` (all strings, default empty).
+Uses `env-schema` (Fastify ecosystem) with JSON Schema validation. Required:
+`postalTemplates`, `postalServer`, `postalKey`. Optional: `postalTransport`
+(postal/smtp, default `postal`), `postalPort` (default 25), `postalUser`,
+`postalSender`, `postalAssetsUrl`, `postalDefaultLocale`. All camelCase.
 
 ## CI/CD
 
-- GitHub Actions (`.github/workflows/main.yml`)
-- Triggers on push/PR to `master`/`main`
-- Matrix: Node.js 20, 22, 24
-- Uses pnpm with `pnpm/action-setup@v4`
-- Starts Mailpit via `docker run` for SMTP tests
-- Coverage uploaded to Coveralls
+- GitHub Actions (`.github/workflows/main.yml`), triggers on push/PR to `master`/`main`
+- Matrix: Node.js 20, 22, 24 with pnpm (`pnpm/action-setup@v4`)
+- Starts Mailpit via `docker run` for SMTP tests, coverage uploaded to Coveralls
 - Dependabot auto-merge for dependency updates
