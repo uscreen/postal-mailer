@@ -40,8 +40,8 @@ importers:
         specifier: ^7.7.3
         version: 7.7.3(@typescript-eslint/rule-tester@8.56.1(eslint@9.39.4)(typescript@5.9.3))(@typescript-eslint/typescript-estree@8.57.1(typescript@5.9.3))(@typescript-eslint/utils@8.57.1(eslint@9.39.4)(typescript@5.9.3))(@vue/compiler-sfc@3.5.29)(eslint-plugin-format@2.0.1(eslint@9.39.4))(eslint@9.39.4)(typescript@5.9.3)
       '@uscreen.de/dev-service':
-        specifier: ^0.13.1
-        version: 0.13.1
+        specifier: ^0.14.0
+        version: 0.14.0
       c8:
         specifier: ^11.0.0
         version: 11.0.0
@@ -603,8 +603,8 @@ packages:
     resolution: {integrity: sha512-YWnmJkXbofiz9KbnbbwuA2rpGkFPLbAIetcCNO6mJ8gdhdZ/v7WDXsoGFAJuM6ikUFKTlSQnjWnVO4ux+UzS6A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@uscreen.de/dev-service@0.13.1':
-    resolution: {integrity: sha512-IpA2d+NDYtcouKG8Qo9pZNff9FWxR1D+sG0LGUw3tEn6XotzMfSPfuL+Ozpk9PkecpKxKBonYSXf+r2bT4l+9g==}
+  '@uscreen.de/dev-service@0.14.0':
+    resolution: {integrity: sha512-v2WJ+eHluOcxG45ze2vEpTZueBHK+Qg4qQzdG0eygodJbXyA70is0zXV9/tT57LEB8k8xQC6OqXVTcLk+vto2A==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -2895,8 +2895,8 @@ snapshots:
 
   '@typescript-eslint/project-service@8.56.1(typescript@5.9.3)':
     dependencies:
-      '@typescript-eslint/tsconfig-utils': 8.56.1(typescript@5.9.3)
-      '@typescript-eslint/types': 8.56.1
+      '@typescript-eslint/tsconfig-utils': 8.57.1(typescript@5.9.3)
+      '@typescript-eslint/types': 8.57.1
       debug: 4.4.3
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -3021,7 +3021,7 @@ snapshots:
       '@typescript-eslint/types': 8.57.1
       eslint-visitor-keys: 5.0.1
 
-  '@uscreen.de/dev-service@0.13.1':
+  '@uscreen.de/dev-service@0.14.0':
     dependencies:
       chalk: 5.6.2
       commander: 14.0.3
