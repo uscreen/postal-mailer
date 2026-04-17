@@ -23,7 +23,9 @@ $ yarn add @uscreen.de/postal-mailer # or use npm -i
 ## Example
 
 ```js
-const mailer = require('@uscreen.de/postal-mailer')({
+import postalMailer from '@uscreen.de/postal-mailer'
+
+const mailer = postalMailer({
   // load config defaults from .env file (defaults to false)
   useDotenv: true,
 
@@ -193,9 +195,23 @@ All options can be managed via `.env` file and/or inline configuration as seen a
 ### mailer.sendMail({ template, data, to, subject, locale = '' })
 
 Send a `template` rendered with `data` `to` a recepient with a `subject`.
-(In an optional language set by `locale`)
+(In an optional language set by `locale`). Returns a Promise.
+
+### mailer.compileHtmlBody(template, data, locale)
+
+Compile a `template` with `data` and optional `locale` to an HTML string. Returns a Promise.
 
 ## Changelog
+
+### 2.0.0
+
+- **BREAKING:** `compileHtmlBody()` is now async and returns a Promise (due to mjml 5 upgrade)
+- upgraded mjml from 4.x to 5.x
+- updated example code to ESM
+
+### 1.2.0
+
+- added support for parsing template subject with Handlebars
 
 ### 1.1.0
 
