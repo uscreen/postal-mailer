@@ -67,11 +67,12 @@ const tests = [
 ]
 
 // Run tests
-tests.forEach((test) => {
+for (const test of tests) {
   try {
     console.log(`📧 Rendering: ${test.name}`)
 
-    const html = mailer.compileHtmlBody(test.template, testData, test.locale)
+    /* eslint-disable antfu/no-top-level-await */
+    const html = await mailer.compileHtmlBody(test.template, testData, test.locale)
     const outputPath = path.join(outputDir, test.output)
 
     // Wrap in a simple HTML viewer with side-by-side comparison capability
@@ -132,7 +133,7 @@ tests.forEach((test) => {
   catch (error) {
     console.error(`   ❌ Error: ${error.message}`)
   }
-})
+}
 
 // Create comparison page
 const comparisonHtml = `<!DOCTYPE html>

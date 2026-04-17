@@ -103,7 +103,7 @@ describe('layout system', () => {
   })
 
   test('should process template with layout', async () => {
-    const html = app.compileHtmlBody('test-layout', { name: 'John' }, 'de')
+    const html = await app.compileHtmlBody('test-layout', { name: 'John' }, 'de')
 
     // Check that layout was applied
     assert.match(html, /Test Email/, 'should have title from layout variable')
@@ -114,7 +114,7 @@ describe('layout system', () => {
   })
 
   test('should process template without layout', async () => {
-    const html = app.compileHtmlBody('test-no-layout', { name: 'Jane' }, 'de')
+    const html = await app.compileHtmlBody('test-no-layout', { name: 'Jane' }, 'de')
 
     // Check that template works without layout
     assert.match(html, /No Layout/, 'should have original title')
@@ -136,7 +136,7 @@ headerText: "Relative Header"
   </mj-column>
 </mj-section>`)
 
-    const html = app.compileHtmlBody('test-relative-layout', {}, 'de')
+    const html = await app.compileHtmlBody('test-relative-layout', {}, 'de')
 
     // Check that layout was applied
     assert.match(html, /Relative Path Test/, 'should have title from layout')
@@ -156,7 +156,7 @@ layout: missing.mjml
   </mj-column>
 </mj-section>`)
 
-    const html = app.compileHtmlBody('test-bad-layout', {}, 'de')
+    const html = await app.compileHtmlBody('test-bad-layout', {}, 'de')
 
     // Should still compile the template
     assert.match(html, /Content/, 'should compile template even with missing layout')
@@ -175,7 +175,7 @@ title: "No Content Tags"
   </mj-column>
 </mj-section>`)
 
-    const html = app.compileHtmlBody('test-no-content', {}, 'de')
+    const html = await app.compileHtmlBody('test-no-content', {}, 'de')
 
     // Should use everything after layout declaration as content
     assert.match(html, /This has no content tags/, 'should use content after layout declaration')
@@ -196,7 +196,7 @@ title: "No Footer"
 </mj-section>
 <!-- @endcontent -->`)
 
-    const html = app.compileHtmlBody('test-no-footer', { hideFooter: true }, 'de')
+    const html = await app.compileHtmlBody('test-no-footer', { hideFooter: true }, 'de')
 
     assert.match(html, /Content/, 'should have content')
     // Check for footer text that's not part of the title
@@ -217,7 +217,7 @@ headerText: 'Header with Single Quotes'
   </mj-column>
 </mj-section>`)
 
-    const html = app.compileHtmlBody('test-single-quotes', {}, 'de')
+    const html = await app.compileHtmlBody('test-single-quotes', {}, 'de')
 
     // Check that single-quoted values work
     assert.match(html, /Single Quoted Title/, 'should parse single-quoted title')
@@ -240,7 +240,7 @@ another: invalid: line
   </mj-column>
 </mj-section>`)
 
-    const html = app.compileHtmlBody('test-malformed', {}, 'de')
+    const html = await app.compileHtmlBody('test-malformed', {}, 'de')
 
     // Should still compile successfully, ignoring invalid lines
     assert.match(html, /Content with malformed meta/, 'should compile despite malformed front matter')
