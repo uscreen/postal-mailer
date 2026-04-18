@@ -1,7 +1,7 @@
 {
   "name": "@uscreen.de/postal-mailer",
   "type": "module",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748",
   "description": "Mailer engine using mjml templates to send mail via postal api or smtp",
   "author": "Marcus Spiegel <spiegel@uscreen.de>",
@@ -28,20 +28,20 @@
   "dependencies": {
     "@atech/postal": "^1.0.0",
     "env-schema": "^7.0.0",
-    "globby": "^16.1.1",
+    "globby": "^16.2.0",
     "gray-matter": "^4.0.3",
-    "handlebars": "^4.7.8",
+    "handlebars": "^4.7.9",
     "html-to-text": "^9.0.5",
     "mjml": "^5.0.1",
-    "nodemailer": "^8.0.3"
+    "nodemailer": "^8.0.5"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^7.7.3",
-    "@uscreen.de/dev-service": "^0.13.1",
+    "@uscreen.de/dev-service": "^0.14.1",
     "c8": "^11.0.0",
     "eslint": "^9.39.4",
     "eslint-plugin-format": "^2.0.1",
-    "nock": "^14.0.11"
+    "nock": "^14.0.12"
   },
   "services": [
     {

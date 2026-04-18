@@ -1,0 +1,10 @@
+<mjml>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-text>Main content</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-include path="./partials/cta.mjml" />
+  </mj-body>
+</mjml>
