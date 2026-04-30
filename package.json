@@ -31,7 +31,7 @@
     "globby": "^16.2.0",
     "gray-matter": "^4.0.3",
     "handlebars": "^4.7.9",
-    "html-to-text": "^9.0.5",
+    "html-to-text": "^10.0.0",
     "mjml": "^5.0.1",
     "nodemailer": "^8.0.5"
   },
