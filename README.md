@@ -192,16 +192,44 @@ All options can be managed via `.env` file and/or inline configuration as seen a
 
 ## API
 
-### mailer.sendMail({ template, data, to, subject, locale = '' })
+### mailer.sendMail({ template, data, to, subject, locale = '', from, cc, bcc, attachments })
 
-Send a `template` rendered with `data` `to` a recepient with a `subject`.
+Send a `template` rendered with `data` `to` a recipient with a `subject`.
 (In an optional language set by `locale`). Returns a Promise.
+
+`to`, `cc` and `bcc` each accept either a single address string or an array of
+address strings, so you can reach multiple recipients in one call:
+
+```js
+await mailer.sendMail({
+  template: 'test',
+  data,
+  to: ['alice@example.com', 'bob@example.com'],
+  cc: 'carol@example.com',
+  bcc: ['dan@example.com', 'erin@example.com'],
+  subject: 'Example Test Mail'
+})
+```
+
+Accepted values for `to`, `cc` and `bcc`:
+
+- a single address — `'alice@example.com'`
+- an array of addresses — `['alice@example.com', 'bob@example.com']`
+- `to` is **required** and must resolve to at least one address; `cc` and `bcc` are optional
+- for `cc`/`bcc`, `null`, `undefined` and `[]` all mean "no recipients"; falsy entries inside an array (e.g. `['a@example.com', null]`) are dropped
+
+The optional `from` overrides the configured sender, and `attachments` is an array
+of `{ filename, contentType, data }`.
 
 ### mailer.compileHtmlBody(template, data, locale)
 
 Compile a `template` with `data` and optional `locale` to an HTML string. Returns a Promise.
 
 ## Changelog
+
+### 2.1.0
+
+- added support for multiple `to`, `cc` and `bcc` recipients (string or array of strings)
 
 ### 2.0.0
 

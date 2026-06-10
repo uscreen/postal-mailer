@@ -69,8 +69,8 @@ describe('sendmail: postal', () => {
 
   test('should send email to cc and bcc', async () => {
     const mock = postalMock(app, 200, {
-      cc: [['cc@domain.com']],
-      bcc: [['bcc1@domain.com', 'bcc2@domain.com']]
+      cc: ['cc@domain.com'],
+      bcc: ['bcc1@domain.com', 'bcc2@domain.com']
     })
 
     const payload = defaultPayload()
@@ -90,6 +90,59 @@ describe('sendmail: postal', () => {
     assert.ok(
       answer.result.messages.KEY['x-postal-msgid'],
       'should have a postal message id'
+    )
+  })
+
+  test('should send email to multiple to recipients', async () => {
+    const mock = postalMock(app, 200, {
+      to: ['to1@domain.com', 'to2@domain.com']
+    })
+
+    const payload = defaultPayload()
+    payload.to = ['to1@domain.com', 'to2@domain.com']
+
+    await app.sendMail(payload)
+    assert.ok(mock.isDone(), 'should send a flat to array to postal')
+  })
+
+  test('should send single string cc as a flat array', async () => {
+    const mock = postalMock(app, 200, { cc: ['cc@domain.com'] })
+
+    const payload = defaultPayload()
+    payload.cc = 'cc@domain.com'
+
+    await app.sendMail(payload)
+    assert.ok(mock.isDone(), 'should normalize a single cc string to a flat array')
+  })
+
+  test('should treat empty cc and bcc arrays as absent', async () => {
+    const mock = postalMock(app)
+
+    const payload = defaultPayload()
+    payload.cc = []
+    payload.bcc = []
+
+    await app.sendMail(payload)
+    assert.ok(mock.isDone(), 'should send without cc/bcc headers')
+  })
+
+  test('should fail on empty to array', async () => {
+    const payload = defaultPayload()
+    payload.to = []
+    await assert.rejects(
+      () => app.sendMail(payload),
+      error => error && error.code === 'ERR_ASSERTION',
+      'should fail on empty to array'
+    )
+  })
+
+  test('should fail on non-string recipient entry', async () => {
+    const payload = defaultPayload()
+    payload.cc = ['valid@domain.com', 42]
+    await assert.rejects(
+      () => app.sendMail(payload),
+      error => error && error.code === 'ERR_ASSERTION',
+      'should fail on non-string cc entry'
     )
   })
 

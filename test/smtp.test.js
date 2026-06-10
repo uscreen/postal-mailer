@@ -48,6 +48,8 @@ const mailpitClient = host => ({
             from: fullMsg.From?.Address || '',
             to: fullMsg.To?.[0]?.Address || '',
             cc: fullMsg.Cc?.[0]?.Address || '',
+            toAddresses: fullMsg.To?.map(t => t.Address) || [],
+            ccAddresses: fullMsg.Cc?.map(c => c.Address) || [],
             subject: fullMsg.Subject || '',
             html: fullMsg.HTML || '',
             text: fullMsg.Text || '',
@@ -153,6 +155,46 @@ describe('sendmail: smtp', () => {
       'should send from mail@domain.com'
     )
     assert.strictEqual(message.cc, 'cc@domain.com', 'should send CC to cc@domain.com')
+  })
+
+  test('should send to multiple to recipients', async () => {
+    const payload = defaultPayload()
+    payload.to = ['to1@domain.com', 'to2@domain.com']
+    const result = await app.sendMail(payload)
+    assert.ok(result, 'should have result')
+    assert.strictEqual(
+      result.accepted.length,
+      2,
+      'should have accepted all mail addresses'
+    )
+
+    const messages = await mpClient.messages()
+    assert.strictEqual(messages.total, 1, 'should have 1 mail sent')
+
+    const message = messages.items[0]
+    payload.to.forEach((addr) => {
+      assert.ok(message.toAddresses.includes(addr), `should send to ${addr}`)
+    })
+  })
+
+  test('should send to multiple cc', async () => {
+    const payload = defaultPayload()
+    payload.cc = ['cc1@domain.com', 'cc2@domain.com']
+    const result = await app.sendMail(payload)
+    assert.ok(result, 'should have result')
+    assert.strictEqual(
+      result.accepted.length,
+      3,
+      'should have accepted all mail addresses'
+    )
+
+    const messages = await mpClient.messages()
+    assert.strictEqual(messages.total, 1, 'should have 1 mail sent')
+
+    const message = messages.items[0]
+    payload.cc.forEach((addr) => {
+      assert.ok(message.ccAddresses.includes(addr), `should send CC to ${addr}`)
+    })
   })
 
   test('should send to bcc', async () => {
