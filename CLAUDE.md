@@ -19,6 +19,7 @@ SMTP tests require Mailpit: `docker run -d -p 1025:1025 -p 8025:8025 axllent/mai
 ESM-only (`"type": "module"`) library using a **factory/closure pattern** throughout — no classes.
 
 Entry point (`index.js`) calls `lib/index.js` which:
+
 1. Validates config via `lib/config.js` (env-schema)
 2. Selects transport: `lib/postal.js` (Postal API) or `lib/smtp.js` (nodemailer SMTP)
 3. Returns `{ sendMail, compileHtmlBody, compilePlainBody }`
@@ -28,6 +29,7 @@ Template compilation (`lib/utils.js`): reads MJML templates from locale director
 ## Code Style
 
 See AGENTS.md for detailed conventions. Key points:
+
 - `@antfu/eslint-config` with Stroustrup brace style (`else` on new line)
 - No semicolons, single quotes, no trailing commas
 - camelCase for variables/functions, kebab-case for files

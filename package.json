@@ -36,10 +36,10 @@
     "nodemailer": "^9.0.5"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^7.7.3",
+    "@antfu/eslint-config": "^9.3.0",
     "@uscreen.de/dev-service": "^0.14.1",
     "c8": "^12.0.0",
-    "eslint": "^9.39.5",
+    "eslint": "^10.8.1",
     "eslint-plugin-format": "^2.0.1",
     "nock": "^14.0.17"
   },
