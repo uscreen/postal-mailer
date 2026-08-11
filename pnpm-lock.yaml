@@ -18,7 +18,7 @@ importers:
         specifier: ^7.0.0
         version: 7.0.0
       globby:
-        specifier: ^16.2.0
+        specifier: ^16.2.3
         version: 16.2.3
       gray-matter:
         specifier: ^4.0.3
@@ -30,10 +30,10 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0
       mjml:
-        specifier: ^5.0.1
+        specifier: ^5.4.0
         version: 5.4.0(relateurl@0.2.7)(svgo@4.0.2)(typescript@5.9.3)
       nodemailer:
-        specifier: ^9.0.1
+        specifier: ^9.0.5
         version: 9.0.5
     devDependencies:
       '@antfu/eslint-config':
@@ -46,13 +46,13 @@ importers:
         specifier: ^12.0.0
         version: 12.0.0
       eslint:
-        specifier: ^9.39.4
+        specifier: ^9.39.5
         version: 9.39.5
       eslint-plugin-format:
         specifier: ^2.0.1
         version: 2.0.1(eslint@9.39.5)
       nock:
-        specifier: ^14.0.12
+        specifier: ^14.0.17
         version: 14.0.17
 
 packages:
@@ -585,8 +585,8 @@ packages:
     engines: {node: '>=20'}
     hasBin: true
 
-  '@vitest/eslint-plugin@1.6.26':
-    resolution: {integrity: sha512-2eawZk4MZvkEtMZFdScmCE0R1Rti85uRZpmbe9eAv5Q3blDZ5OxlrC9IHlSnxhDCqOO2xKNaD3oufl9BUlI0yA==}
+  '@vitest/eslint-plugin@1.6.27':
+    resolution: {integrity: sha512-X1RCAfwbatG4GFbJ/1PIHP9MSZMt0JJThqbYID+vS4L783k6QGlLPe421wQE8dHXuGCcenVLsydiM4qzsYWxhg==}
     engines: {node: '>=18'}
     peerDependencies:
       '@typescript-eslint/eslint-plugin': '*'
@@ -2760,7 +2760,7 @@ snapshots:
       '@stylistic/eslint-plugin': 5.10.0(eslint@9.39.5)
       '@typescript-eslint/eslint-plugin': 8.66.0(@typescript-eslint/parser@8.66.0(eslint@9.39.5)(typescript@5.9.3))(eslint@9.39.5)(typescript@5.9.3)
       '@typescript-eslint/parser': 8.66.0(eslint@9.39.5)(typescript@5.9.3)
-      '@vitest/eslint-plugin': 1.6.26(@typescript-eslint/eslint-plugin@8.66.0(@typescript-eslint/parser@8.66.0(eslint@9.39.5)(typescript@5.9.3))(eslint@9.39.5)(typescript@5.9.3))(eslint@9.39.5)(typescript@5.9.3)
+      '@vitest/eslint-plugin': 1.6.27(@typescript-eslint/eslint-plugin@8.66.0(@typescript-eslint/parser@8.66.0(eslint@9.39.5)(typescript@5.9.3))(eslint@9.39.5)(typescript@5.9.3))(eslint@9.39.5)(typescript@5.9.3)
       ansis: 4.3.1
       cac: 7.0.0
       eslint: 9.39.5
@@ -3242,7 +3242,7 @@ snapshots:
       read-pkg: 10.1.0
       yaml: 2.9.0
 
-  '@vitest/eslint-plugin@1.6.26(@typescript-eslint/eslint-plugin@8.66.0(@typescript-eslint/parser@8.66.0(eslint@9.39.5)(typescript@5.9.3))(eslint@9.39.5)(typescript@5.9.3))(eslint@9.39.5)(typescript@5.9.3)':
+  '@vitest/eslint-plugin@1.6.27(@typescript-eslint/eslint-plugin@8.66.0(@typescript-eslint/parser@8.66.0(eslint@9.39.5)(typescript@5.9.3))(eslint@9.39.5)(typescript@5.9.3))(eslint@9.39.5)(typescript@5.9.3)':
     dependencies:
       '@typescript-eslint/scope-manager': 8.66.0
       '@typescript-eslint/utils': 8.66.0(eslint@9.39.5)(typescript@5.9.3)
