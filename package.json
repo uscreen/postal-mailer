@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.3.0",
-    "@uscreen.de/dev-service": "^0.14.1",
+    "@uscreen.de/dev-service": "^0.15.0",
     "c8": "^12.0.0",
     "eslint": "^10.8.1",
     "eslint-plugin-format": "^2.0.1",
