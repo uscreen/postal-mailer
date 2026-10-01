@@ -227,6 +227,12 @@ Compile a `template` with `data` and optional `locale` to an HTML string. Return
 
 ## Changelog
 
+### 3.0.0
+
+- **BREAKING:** requires Node.js 20 or newer (due to nodemailer 10 upgrade)
+- upgraded nodemailer from 9.x to 10.x
+- upgraded env-schema from 7.x to 8.x
+
 ### 2.1.0
 
 - added support for multiple `to`, `cc` and `bcc` recipients (string or array of strings)
