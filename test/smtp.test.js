@@ -36,7 +36,9 @@ const mailpitClient = host => ({
 
           // Get raw message content for attachment verification
           const rawResponse = await fetch(`http://${host}:8025/api/v1/message/${msg.ID}/raw`)
-          const rawContent = rawResponse.ok ? await rawResponse.text() : ''
+          const rawContent = rawResponse.ok
+            ? await rawResponse.text()
+            : ''
 
           // Combine To and Bcc addresses for Raw.To (MailHog compatibility)
           const allRecipients = [

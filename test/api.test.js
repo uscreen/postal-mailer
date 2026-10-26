@@ -106,7 +106,9 @@ describe('sendmail: postal', () => {
   })
 
   test('should send single string cc as a flat array', async () => {
-    const mock = postalMock(app, 200, { cc: ['cc@domain.com'] })
+    const mock = postalMock(app, 200, {
+      cc: ['cc@domain.com']
+    })
 
     const payload = defaultPayload()
     payload.cc = 'cc@domain.com'

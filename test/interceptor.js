@@ -11,12 +11,17 @@ const intercept
   = (additional = {}) =>
     (body) => {
       const customInterceptor
-        = typeof additional === 'function' ? additional : () => true
+        = typeof additional === 'function'
+          ? additional
+          : () => true
 
       const data
         = typeof additional === 'function'
           ? defaults()
-          : { ...defaults(), ...additional }
+          : {
+              ...defaults(),
+              ...additional
+            }
 
       const retained = {}
       Object.keys(body).forEach((k) => {
@@ -28,7 +33,10 @@ const intercept
 
       try {
         assert.deepStrictEqual(body, data)
-        return customInterceptor({ ...body, ...retained })
+        return customInterceptor({
+          ...body,
+          ...retained
+        })
       }
       catch {
         return false
