@@ -30,19 +30,19 @@
   },
   "dependencies": {
     "@atech/postal": "^1.0.0",
-    "env-schema": "^8.0.0",
-    "globby": "^16.2.3",
+    "env-schema": "^8.0.1",
+    "globby": "^16.2.4",
     "gray-matter": "^4.0.3",
-    "handlebars": "^4.7.9",
-    "html-to-text": "^10.0.0",
-    "mjml": "^5.4.0",
-    "nodemailer": "^10.0.1"
+    "handlebars": "^4.7.10",
+    "html-to-text": "^10.0.1",
+    "mjml": "^5.4.1",
+    "nodemailer": "^10.2.1"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^10.0.0",
     "@uscreen.de/dev-service": "^0.15.0",
     "c8": "^12.0.0",
-    "eslint": "^10.8.1",
+    "eslint": "^10.13.0",
     "eslint-plugin-format": "^2.0.1",
     "nock": "^15.0.5"
   },
