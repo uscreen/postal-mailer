@@ -59,7 +59,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true
-          carryforward: 'run-22,run-24'
+          carryforward: 'run-22,run-24,run-26'
 
   automerge:
     if: >

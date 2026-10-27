@@ -16,7 +16,7 @@ layout inheritance, i18n via locale-based template directories, and frontmatter 
 - **Test single case**: `node --test --test-name-pattern="pattern" test/api.test.js`
 - **Test with coverage**: `pnpm run test:cov` (HTML + text report via c8)
 
-Node.js 20+ required. `.nvmrc` specifies Node 24. CI tests against 22, 24.
+Node.js 20+ required. `.nvmrc` specifies Node 24. CI tests against 22, 24, 26.
 SMTP tests (`test/smtp.test.js`) require a running Mailpit instance on ports 1025/8025.
 Start it via: `docker run -d -p 1025:1025 -p 8025:8025 axllent/mailpit:latest`
 API tests (`test/api.test.js`) use nock to mock HTTP -- no external services needed.
@@ -159,6 +159,6 @@ Uses `env-schema` (Fastify ecosystem) with JSON Schema validation. Required:
 ## CI/CD
 
 - GitHub Actions (`.github/workflows/main.yml`), triggers on push/PR to `master`/`main`
-- Matrix: Node.js 22, 24 with pnpm (`pnpm/action-setup@v4`)
+- Matrix: Node.js 22, 24, 26 with pnpm (`pnpm/action-setup@v4`)
 - Starts Mailpit via `docker run` for SMTP tests, coverage uploaded to Coveralls
 - Dependabot auto-merge for dependency updates
