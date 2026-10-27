@@ -159,6 +159,6 @@ Uses `env-schema` (Fastify ecosystem) with JSON Schema validation. Required:
 ## CI/CD
 
 - GitHub Actions (`.github/workflows/main.yml`), triggers on push/PR to `master`/`main`
-- Matrix: Node.js 22, 24, 26 with pnpm (`pnpm/action-setup@v4`)
+- Matrix: Node.js 22, 24, 26 with pnpm (`pnpm/action-setup@v6`)
 - Starts Mailpit via `docker run` for SMTP tests, coverage uploaded to Coveralls
 - Dependabot auto-merge for dependency updates
