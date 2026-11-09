@@ -189,6 +189,7 @@ All options can be managed via `.env` file and/or inline configuration as seen a
 | **postalTemplates**     | path to directory containing email templates                                                                | `<cwd>/templates` | ./templates/mails                   |
 | **postalAssetsUrl**     | url to prefix assets                                                                                        | `''`              | https://www.example.com/mail/assets |
 | **postalDefaultLocale** | when set, locales will default to 'en' and templates will default `./templates/en` instead of `./templates` | `''`              | 'en'                                |
+| **postalTimeout**       | If sending via Postal API, ms until a request is aborted and `sendMail` rejects                             | `30000`           | 10000                               |
 
 ## API
 

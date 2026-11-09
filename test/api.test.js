@@ -67,6 +67,100 @@ describe('sendmail: postal', () => {
     )
   })
 
+  test('should reject (not crash) on a non-JSON response', async () => {
+    nock(`https://${app.postalOptions.postalServer}`)
+      .post('/api/v1/send/message')
+      .reply(502, '<!DOCTYPE html><html><body>Bad Gateway</body></html>', {
+        'Content-Type': 'text/html'
+      })
+
+    await assert.rejects(
+      () => app.sendMail(defaultPayload()),
+      (error) => {
+        assert.strictEqual(error.name, 'PostalError')
+        assert.strictEqual(error.status, 502)
+        assert.match(error.body, /^<!DOCTYPE html>/)
+        return true
+      }
+    )
+  })
+
+  test('should reject with postal error details', async () => {
+    nock(`https://${app.postalOptions.postalServer}`)
+      .post('/api/v1/send/message')
+      .reply(200, {
+        status: 'error',
+        data: { code: 'NoRecipients', message: 'There are no recipients defined to receive this message' }
+      })
+
+    await assert.rejects(
+      () => app.sendMail(defaultPayload()),
+      (error) => {
+        assert.strictEqual(error.name, 'PostalError')
+        assert.strictEqual(error.code, 'NoRecipients')
+        assert.strictEqual(error.message, 'There are no recipients defined to receive this message')
+        assert.deepStrictEqual(error.data, {
+          code: 'NoRecipients',
+          message: 'There are no recipients defined to receive this message'
+        })
+        return true
+      }
+    )
+  })
+
+  test('should reject on network errors', async () => {
+    nock(`https://${app.postalOptions.postalServer}`)
+      .post('/api/v1/send/message')
+      .replyWithError('socket hang up')
+
+    await assert.rejects(() => app.sendMail(defaultPayload()))
+  })
+
+  test('should reject when postal does not answer in time', async (t) => {
+    /*
+     * nock's delayed replies still complete after an abort, which trips an
+     * internal undici assertion — so simulate a hanging server directly:
+     * a fetch that never answers and rejects with the abort reason, as
+     * the real fetch does once the signal fires. The timer stands in for
+     * the open socket that keeps the event loop alive (the signal's own
+     * timer is unref'd)
+     */
+    t.mock.method(globalThis, 'fetch', (_url, { signal }) =>
+      new Promise((_resolve, reject) => {
+        const socket = setTimeout(() => {}, 5000)
+        signal.addEventListener('abort', () => {
+          clearTimeout(socket)
+          reject(signal.reason)
+        })
+      }))
+
+    const slowApp = await build({ postalTransport: 'postal', postalTimeout: 50 })
+
+    await assert.rejects(
+      () => slowApp.sendMail(defaultPayload()),
+      (error) => {
+        assert.strictEqual(error.name, 'PostalError')
+        assert.strictEqual(error.code, 'Timeout')
+        assert.match(error.message, /timed out after 50ms/)
+        return true
+      }
+    )
+  })
+
+  test('should send the server key header', async () => {
+    const mock = nock(`https://${app.postalOptions.postalServer}`, {
+      reqheaders: { 'X-Server-API-Key': app.postalOptions.postalKey }
+    })
+      .post('/api/v1/send/message')
+      .reply(200, {
+        status: 'success',
+        data: { messages: {} }
+      })
+
+    await app.sendMail(defaultPayload())
+    assert.ok(mock.isDone(), 'should authenticate with the server key')
+  })
+
   test('should send email to cc and bcc', async () => {
     const mock = postalMock(app, 200, {
       cc: ['cc@domain.com'],
