@@ -14,6 +14,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 SMTP tests require Mailpit: `docker run -d -p 1025:1025 -p 8025:8025 axllent/mailpit:latest`
 
+## Releasing
+
+Every npm publish gets a matching GitHub release — tags alone are not enough.
+
+1. `pnpm test` (with Mailpit running) and `pnpm run lint`
+2. `npm version <patch|minor|major>` → creates commit + `vX.Y.Z` tag
+3. `git push --follow-tags`
+4. `npm publish` (requires npm 2FA; the user runs it)
+5. `gh release create vX.Y.Z --title vX.Y.Z --notes-file <notes>` — notes grouped as Fixes / Features / CI / Dependencies, ending with a `**Full Changelog**: …/compare/vPREV...vX.Y.Z` link
+
 ## Architecture
 
 ESM-only (`"type": "module"`) library using a **factory/closure pattern** throughout — no classes.
