@@ -40,8 +40,8 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0(@typescript-eslint/typescript-estree@8.72.0(typescript@5.9.3))(@typescript-eslint/utils@8.72.0(eslint@10.14.0)(typescript@5.9.3))(@vue/compiler-sfc@3.5.29)(eslint-plugin-format@2.0.1(eslint@10.14.0))(eslint@10.14.0)(ts-declaration-location@1.0.7(typescript@5.9.3))(typescript@5.9.3)
       '@uscreen.de/dev-service':
-        specifier: ^0.15.0
-        version: 0.15.0
+        specifier: ^0.16.0
+        version: 0.16.0
       c8:
         specifier: ^12.0.0
         version: 12.0.0
@@ -590,8 +590,8 @@ packages:
     resolution: {integrity: sha512-E2mroviasaWecDzTGiGMtuEguuLVOeRggnrIn93CJuxYJzQBHbyymlT08aVQydbBal5538o+JkBKXh2sRuCyIA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@uscreen.de/dev-service@0.15.0':
-    resolution: {integrity: sha512-azSkecEquWrujOsx7VVBhMtSEqAKOQyqqzKqRkjba7DIJb2C2ILMxNyfqNEF+4WZxiHQHzQUGT3g+57mRiVa/A==}
+  '@uscreen.de/dev-service@0.16.0':
+    resolution: {integrity: sha512-DqvYHQBZP0cDiinZ7NkIBdLQHRJ2ZtxUy7kVDyg9c5OM16G8IiCcT8hxLeFbgYPOFVvsl5q5wMZPgKtnzstDew==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -804,8 +804,8 @@ packages:
     resolution: {integrity: sha512-H+y0Jo/T1RZ9qPP4Eh1pkcQcLRglraJaSLoyOtHxu6AapkjWVCy2Sit1QQ4x3Dng8qDlSsZEet7g5Pq06MvTgw==}
     engines: {node: '>=20'}
 
-  commander@15.0.0:
-    resolution: {integrity: sha512-z67u4ZhzCL/Tydu1lJARtEZYWbWaN7oYLHbsuzocr6y4N6WZAagG3RQ4FW61V1/0+jImpj293XfrcYnd1qxtPg==}
+  commander@15.1.0:
+    resolution: {integrity: sha512-cgnQ88TRrWcC7pVq46RzJVRMktu3W2RcbnoidnfBsl1bmDCBwJS/udcIZpKoCrbAYYaCqsz1yZCVIgbIaU3ddQ==}
     engines: {node: '>=22.12.0'}
 
   commander@8.3.0:
@@ -2439,6 +2439,11 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  semver@7.8.6:
+    resolution: {integrity: sha512-9lpSSU4Mly3mrtruwLs1eLK6+gzbzqeBFwRNjIjE+9LuDpWdYctrQlQ3ej1Ilgi7gknpsTRnPoLP8DpCHqHIJw==}
+    engines: {node: '>=10'}
+    hasBin: true
+
   shebang-command@2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
     engines: {node: '>=8'}
@@ -3230,7 +3235,7 @@ snapshots:
       '@typescript-eslint/visitor-keys': 8.72.0
       debug: 4.4.3
       minimatch: 10.2.6
-      semver: 7.8.5
+      semver: 7.8.6
       tinyglobby: 0.2.17
       ts-api-utils: 2.5.0(typescript@5.9.3)
       typescript: 5.9.3
@@ -3253,10 +3258,10 @@ snapshots:
       '@typescript-eslint/types': 8.72.0
       eslint-visitor-keys: 5.0.1
 
-  '@uscreen.de/dev-service@0.15.0':
+  '@uscreen.de/dev-service@0.16.0':
     dependencies:
       chalk: 6.0.1
-      commander: 15.0.0
+      commander: 15.1.0
       fs-extra: 11.4.1
       nanoid: 6.0.2
       parse-json: 8.3.0
@@ -3490,7 +3495,7 @@ snapshots:
 
   commander@14.0.3: {}
 
-  commander@15.0.0: {}
+  commander@15.1.0: {}
 
   commander@8.3.0: {}
 
@@ -3694,7 +3699,7 @@ snapshots:
       '@one-ini/wasm': 0.2.1
       commander: 14.0.3
       minimatch: 10.2.6
-      semver: 7.8.5
+      semver: 7.8.6
 
   electron-to-chromium@1.5.464: {}
 
@@ -3747,7 +3752,7 @@ snapshots:
   eslint-compat-utils@0.5.1(eslint@10.14.0):
     dependencies:
       eslint: 10.14.0
-      semver: 7.8.5
+      semver: 7.8.6
 
   eslint-config-flat-gitignore@2.4.0(eslint@10.14.0):
     dependencies:
@@ -5306,7 +5311,7 @@ snapshots:
   normalize-package-data@8.0.0:
     dependencies:
       hosted-git-info: 9.0.3
-      semver: 7.8.5
+      semver: 7.8.6
       validate-npm-package-license: 3.0.4
 
   nth-check@2.1.1:
@@ -5733,6 +5738,8 @@ snapshots:
       parseley: 0.13.1
 
   semver@7.8.5: {}
+
+  semver@7.8.6: {}
 
   shebang-command@2.0.0:
     dependencies:
